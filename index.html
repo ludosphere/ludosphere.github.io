@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soirées Jeux · Association</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts : Syne (display) + Instrument Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body:    ['Instrument Sans', 'sans-serif'],
+          },
+          colors: {
+            ink:    '#0d0d0d',
+            paper:  '#f9f8f6',
+            mist:   '#f0ede8',
+            line:   '#e2ddd7',
+            accent: '#2563eb',
+            soft:   '#93c5fd',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%':   { opacity: '0', transform: 'translateY(16px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          },
+          animation: {
+            'fade-up':   'fadeUp .45s ease both',
+            'fade-up-2': 'fadeUp .45s .1s ease both',
+            'fade-up-3': 'fadeUp .45s .2s ease both',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'Instrument Sans', sans-serif; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #f0ede8; }
+    ::-webkit-scrollbar-thumb { background: #c7bfb3; border-radius: 4px; }
+
+    .today-pill {
+      background: #2563eb; color: #fff;
+      font-size: .62rem; font-weight: 500;
+      letter-spacing: .08em; padding: .12rem .45rem;
+      border-radius: 99px; vertical-align: middle;
+      margin-left: .4rem; text-transform: uppercase;
+    }
+    .event-card {
+      border-left: 2px solid #e2ddd7;
+      transition: border-color .2s, background .2s;
+    }
+    .event-card:hover { border-left-color: #2563eb; background: #f0ede8; }
+
+    @keyframes shimmer {
+      0%   { background-position: -600px 0; }
+      100% { background-position:  600px 0; }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, #ede9e2 25%, #f5f3ef 50%, #ede9e2 75%);
+      background-size: 600px 100%;
+      animation: shimmer 1.2s infinite;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+
+<body class="bg-paper text-ink min-h-screen">
+
+  <!-- HEADER -->
+  <header class="border-b border-line bg-paper/90 sticky top-0 z-10 backdrop-blur-sm">
+    <div class="max-w-5xl mx-auto px-5 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-ink rounded-md grid place-items-center text-paper text-base select-none">🎲</div>
+        <span class="font-display font-bold text-lg tracking-tight">Soirées Jeux</span>
+      </div>
+      <a href="mailto:contact@votreasso.fr"
+         class="text-sm font-medium border border-line rounded-full px-4 py-1.5
+                hover:bg-ink hover:text-paper hover:border-ink transition-all duration-200">
+        Nous écrire
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="max-w-5xl mx-auto px-5 pt-14 pb-10 animate-fade-up">
+    <p class="text-xs font-medium tracking-widest uppercase text-accent mb-3">Association ludique</p>
+    <h1 class="font-display font-extrabold text-5xl sm:text-6xl leading-none tracking-tight mb-4">
+      Prochaines<br>soirées jeux
+    </h1>
+    <p class="text-base text-zinc-500 max-w-md leading-relaxed">
+      Des parties conviviales chaque mois — stratégie, coopératif, ambiance.
+      Ouvert à tous, débutants bienvenus.
+    </p>
+  </section>
+
+  <!-- LAYOUT -->
+  <main class="max-w-5xl mx-auto px-5 pb-20 grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-up-2">
+
+    <!-- COLONNE ÉVÉNEMENTS -->
+    <div class="lg:col-span-2">
+
+      <!-- Filtres vue -->
+      <div class="flex items-center gap-2 mb-6">
+        <button onclick="setView('list')" id="btn-list"
+          class="text-xs font-medium px-3 py-1.5 rounded-full border border-ink bg-ink text-paper transition-all">
+          Liste
+        </button>
+        <button onclick="setView('month')" id="btn-month"
+          class="text-xs font-medium px-3 py-1.5 rounded-full border border-line text-zinc-500 hover:border-ink hover:text-ink transition-all">
+          Mois
+        </button>
+        <span class="ml-auto text-xs text-zinc-400" id="event-count"></span>
+      </div>
+
+      <!-- Vue liste -->
+      <div id="view-list">
+        <div id="events-container" class="flex flex-col gap-1"></div>
+        <div id="skeleton" class="flex flex-col gap-2">
+          <div class="skeleton h-20"></div>
+          <div class="skeleton h-20"></div>
+          <div class="skeleton h-20"></div>
+        </div>
+      </div>
+
+      <!-- Vue mois -->
+      <div id="view-month" class="hidden">
+        <div id="calendar-grid"></div>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="flex flex-col gap-5 animate-fade-up-3">
+
+      <!-- Prochain événement -->
+      <div id="next-card" class="bg-ink text-paper rounded-xl p-5 hidden">
+        <p class="text-xs font-medium tracking-widest uppercase text-soft mb-3">Prochain rendez-vous</p>
+        <div id="next-date"  class="font-display font-extrabold text-4xl leading-none text-white mb-1"></div>
+        <div id="next-month" class="text-xs text-zinc-400 mb-3 uppercase tracking-widest"></div>
+        <div id="next-title" class="font-medium text-base mb-1"></div>
+        <div id="next-where" class="text-sm text-zinc-400"></div>
+        <div id="next-desc"  class="text-sm text-zinc-400 mt-2 leading-relaxed line-clamp-3"></div>
+      </div>
+
+      <!-- Infos pratiques -->
+      <div class="border border-line rounded-xl p-5">
+        <p class="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">Infos pratiques</p>
+        <ul class="flex flex-col gap-3 text-sm">
+          <li class="flex gap-2 items-start"><span class="mt-0.5">📍</span><span>Salle des fêtes, 12 rue du Jeu</span></li>
+          <li class="flex gap-2 items-start"><span class="mt-0.5">🕕</span><span>Accueil dès 18h30 · Parties jusqu'à 23h</span></li>
+          <li class="flex gap-2 items-start"><span class="mt-0.5">🎟</span><span>Entrée libre · Adhésion annuelle 10 €</span></li>
+        </ul>
+      </div>
+
+      <!-- Contacts -->
+      <div class="border border-line rounded-xl p-5">
+        <p class="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">Contact</p>
+        <ul class="flex flex-col gap-3">
+          <li class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-mist grid place-items-center text-xs font-bold flex-shrink-0">ML</div>
+            <div>
+              <p class="text-sm font-medium leading-tight">Marie Lefebvre</p>
+              <p class="text-xs text-zinc-400">Présidente</p>
+            </div>
+          </li>
+          <li class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-mist grid place-items-center text-xs font-bold flex-shrink-0">TC</div>
+            <div>
+              <p class="text-sm font-medium leading-tight">Thomas Collet</p>
+              <p class="text-xs text-zinc-400">Secrétaire</p>
+            </div>
+          </li>
+          <li class="mt-1">
+            <a href="mailto:contact@votreasso.fr" class="flex items-center gap-2 text-sm text-accent hover:underline">
+              <span>✉️</span> contact@votreasso.fr
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Liens -->
+      <div class="border border-line rounded-xl p-5">
+        <p class="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">Liens utiles</p>
+        <ul class="flex flex-col gap-0">
+          <li>
+            <a href="https://boardgamegeek.com" target="_blank" rel="noopener"
+               class="flex items-center justify-between text-sm py-2.5 border-b border-line hover:text-accent transition-colors group">
+              <span>BoardGameGeek</span><span class="text-zinc-300 group-hover:text-accent">↗</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" target="_blank" rel="noopener"
+               class="flex items-center justify-between text-sm py-2.5 border-b border-line hover:text-accent transition-colors group">
+              <span>Notre page Facebook</span><span class="text-zinc-300 group-hover:text-accent">↗</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" target="_blank" rel="noopener"
+               class="flex items-center justify-between text-sm py-2.5 hover:text-accent transition-colors group">
+              <span>S'abonner au calendrier</span><span class="text-zinc-300 group-hover:text-accent">↗</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </aside>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-line">
+    <div class="max-w-5xl mx-auto px-5 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-zinc-400">
+      <span>© 2025 Association Jeux de Société</span>
+      <span>Calendrier synchronisé avec Google Agenda</span>
+    </div>
+  </footer>
+
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // ╔══════════════════════════════════════════════════╗
+    // ║  ✏️  2 VALEURS À REMPLACER                      ║
+    // ╚══════════════════════════════════════════════════╝
+    const CONFIG = {
+      API_KEY:     'VOTRE_CLE_API_GOOGLE',              // Google Cloud Console
+      CALENDAR_ID: 'VOTRE_ID@group.calendar.google.com',// Paramètres Google Agenda
+      MAX_RESULTS: 15,
+    };
+
+    // Données de démo (affichées tant que l'API n'est pas configurée)
+    const DEMO_EVENTS = [
+      {
+        id:'1', summary:'🎲 Soirée Stratégie',
+        description:'Au programme : Wingspan, Terraforming Mars, Scythe. Tous niveaux !',
+        location:'Salle des fêtes, 12 rue du Jeu',
+        start:{ dateTime: new Date(Date.now() + 11*864e5).toISOString() }
+      },
+      {
+        id:'2', summary:'🃏 Soirée Ambiance',
+        description:'Blanc-Manger Coco, Time\'s Up, Codenames — rires garantis.',
+        location:'Salle des fêtes, 12 rue du Jeu',
+        start:{ dateTime: new Date(Date.now() + 42*864e5).toISOString() }
+      },
+      {
+        id:'3', summary:'🤝 Soirée Coopérative',
+        description:'Pandemic Legacy, Spirit Island, Gloomhaven — on joue ensemble !',
+        location:'Salle des fêtes, 12 rue du Jeu',
+        start:{ dateTime: new Date(Date.now() + 73*864e5).toISOString() }
+      },
+    ];
+
+    const MONTHS      = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
+    const MONTHS_LONG = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+    const DAYS        = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+
+    function getDate(ev) { return new Date(ev.start.dateTime || ev.start.date); }
+    function formatTime(d) {
+      return (!d.getHours() && !d.getMinutes())
+        ? 'Journée entière'
+        : d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+    }
+
+    // ── Vue boutons ──
+    function setView(v) {
+      document.getElementById('view-list').classList.toggle('hidden', v !== 'list');
+      document.getElementById('view-month').classList.toggle('hidden', v !== 'month');
+      const active   = 'text-xs font-medium px-3 py-1.5 rounded-full border border-ink bg-ink text-paper transition-all';
+      const inactive = 'text-xs font-medium px-3 py-1.5 rounded-full border border-line text-zinc-500 hover:border-ink hover:text-ink transition-all';
+      document.getElementById('btn-list').className  = v==='list'  ? active : inactive;
+      document.getElementById('btn-month').className = v==='month' ? active : inactive;
+    }
+
+    // ── Rendu liste ──
+    function renderList(events) {
+      const c = document.getElementById('events-container');
+      c.innerHTML = '';
+      if (!events.length) {
+        c.innerHTML = '<p class="text-sm text-zinc-400 py-10 text-center">Aucune soirée programmée.</p>';
+        return;
+      }
+      events.forEach((ev, i) => {
+        const d = getDate(ev);
+        const isToday = d.toDateString() === new Date().toDateString();
+        const el = document.createElement('div');
+        el.className = 'event-card rounded-lg px-4 py-4 flex gap-4 cursor-default';
+        el.innerHTML = `
+          <div class="flex-shrink-0 w-12 text-center pt-0.5">
+            <div class="text-2xl font-display font-extrabold leading-none">${d.getDate()}</div>
+            <div class="text-xs text-zinc-400 uppercase tracking-wide">${MONTHS[d.getMonth()]}</div>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="font-medium text-sm mb-0.5">
+              ${ev.summary||'Soirée jeux'}
+              ${isToday ? '<span class="today-pill">Aujourd\'hui</span>' : ''}
+            </div>
+            <div class="text-xs text-zinc-400 mb-1">
+              ${formatTime(d)}${ev.location ? ' · '+ev.location : ''}
+            </div>
+            ${ev.description
+              ? `<p class="text-xs text-zinc-500 line-clamp-2 leading-relaxed">${ev.description.replace(/<[^>]*>/g,'')}</p>`
+              : ''}
+          </div>
+          <div class="flex-shrink-0 text-xs text-zinc-300 pt-1">${DAYS[d.getDay()]}</div>
+        `;
+        c.appendChild(el);
+      });
+    }
+
+    // ── Rendu grille mensuelle ──
+    function renderMonth(events) {
+      const grid = document.getElementById('calendar-grid');
+      grid.innerHTML = '';
+      const now = new Date();
+      const year = now.getFullYear(), month = now.getMonth();
+      const daysInMonth = new Date(year, month+1, 0).getDate();
+      const firstDay = (new Date(year, month, 1).getDay() + 6) % 7; // lundi = 0
+
+      const title = document.createElement('div');
+      title.className = 'font-display font-bold text-xl mb-4';
+      title.textContent = `${MONTHS_LONG[month]} ${year}`;
+      grid.appendChild(title);
+
+      const hdr = document.createElement('div');
+      hdr.className = 'grid grid-cols-7 mb-1';
+      ['L','M','M','J','V','S','D'].forEach(d => {
+        const cell = document.createElement('div');
+        cell.className = 'text-center text-xs text-zinc-400 font-medium py-1';
+        cell.textContent = d;
+        hdr.appendChild(cell);
+      });
+      grid.appendChild(hdr);
+
+      const dayGrid = document.createElement('div');
+      dayGrid.className = 'grid grid-cols-7 gap-0.5';
+
+      for (let i=0; i<firstDay; i++) {
+        dayGrid.appendChild(document.createElement('div'));
+      }
+
+      for (let day=1; day<=daysInMonth; day++) {
+        const ev = events.find(e => {
+          const d=getDate(e);
+          return d.getDate()===day && d.getMonth()===month && d.getFullYear()===year;
+        });
+        const isToday = new Date(year,month,day).toDateString() === new Date().toDateString();
+        const cell = document.createElement('div');
+        cell.className = [
+          'h-10 flex flex-col items-center justify-center rounded-lg text-sm relative',
+          isToday ? 'bg-ink text-paper font-bold' : 'hover:bg-mist cursor-default',
+          ev && !isToday ? 'font-semibold' : '',
+        ].join(' ');
+        cell.title = ev ? ev.summary||'Soirée jeux' : '';
+        cell.innerHTML = `
+          <span>${day}</span>
+          ${ev ? `<span class="absolute bottom-1 w-1 h-1 rounded-full ${isToday?'bg-soft':'bg-accent'}"></span>` : ''}
+        `;
+        dayGrid.appendChild(cell);
+      }
+      grid.appendChild(dayGrid);
+    }
+
+    // ── Carte prochain événement ──
+    function renderNextCard(events) {
+      if (!events.length) return;
+      const ev = events[0];
+      const d = getDate(ev);
+      document.getElementById('next-card').classList.remove('hidden');
+      document.getElementById('next-date').textContent  = d.getDate();
+      document.getElementById('next-month').textContent = `${MONTHS_LONG[d.getMonth()]} ${d.getFullYear()}`;
+      document.getElementById('next-title').textContent = ev.summary||'Soirée jeux';
+      document.getElementById('next-where').textContent = ev.location ? '📍 '+ev.location : '';
+      document.getElementById('next-desc').textContent  = ev.description ? ev.description.replace(/<[^>]*>/g,'') : '';
+    }
+
+    // ── Fetch API Google Agenda ──
+    async function fetchEvents() {
+      const { API_KEY, CALENDAR_ID, MAX_RESULTS } = CONFIG;
+      const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events`
+        + `?key=${API_KEY}&timeMin=${new Date().toISOString()}&maxResults=${MAX_RESULTS}&singleEvents=true&orderBy=startTime`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      return data.items || [];
+    }
+
+    // ── Init ──
+    async function init() {
+      const isDemo = CONFIG.API_KEY === 'VOTRE_CLE_API_GOOGLE';
+      let events = [];
+
+      if (isDemo) {
+        events = DEMO_EVENTS;
+        const banner = document.createElement('div');
+        banner.className = 'mb-4 text-xs bg-blue-50 border border-blue-200 text-blue-700 rounded-lg px-4 py-2.5';
+        banner.innerHTML = '⚙️ <strong>Mode démo</strong> — Remplacez <code class="bg-blue-100 px-1 rounded">API_KEY</code> et <code class="bg-blue-100 px-1 rounded">CALENDAR_ID</code> dans le fichier HTML.';
+        document.getElementById('events-container').before(banner);
+      } else {
+        try { events = await fetchEvents(); }
+        catch (e) { console.error(e); events = DEMO_EVENTS; }
+      }
+
+      document.getElementById('skeleton').remove();
+      document.getElementById('event-count').textContent =
+        `${events.length} soirée${events.length>1?'s':''} à venir`;
+
+      renderList(events);
+      renderMonth(events);
+      renderNextCard(events);
+    }
+
+    init();
+  </script>
+</body>
+</html>
