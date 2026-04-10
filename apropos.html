@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ludo'sphère · À propos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { display:['Syne','sans-serif'], body:['Instrument Sans','sans-serif'] },
+          colors: { ink:'#0d0d0d', paper:'#f9f8f6', mist:'#f0ede8', line:'#e2ddd7', accent:'#2563eb', soft:'#93c5fd' },
+          keyframes: { fadeUp:{'0%':{opacity:'0',transform:'translateY(16px)'},'100%':{opacity:'1',transform:'translateY(0)'}} },
+          animation: { 'fade-up':'fadeUp .45s ease both','fade-up-2':'fadeUp .45s .1s ease both','fade-up-3':'fadeUp .45s .2s ease both','fade-up-4':'fadeUp .45s .3s ease both' }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family:'Instrument Sans',sans-serif; }
+    ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#f0ede8}::-webkit-scrollbar-thumb{background:#c7bfb3;border-radius:4px}
+    .photo-card{overflow:hidden;border-radius:12px}
+    .photo-card img{transition:transform .4s ease;width:100%;height:100%;object-fit:cover}
+    .photo-card:hover img{transform:scale(1.04)}
+    .stat-card { border-left: 3px solid #2563eb; }
+    .jeu-card { transition: box-shadow .2s, transform .2s; }
+    .jeu-card:hover { box-shadow: 0 8px 24px rgba(13,13,13,.08); transform: translateY(-2px); }
+    .nav-link { transition: color .15s; }
+    .nav-link:hover { color: #2563eb; }
+    .nav-link.active { color: #0d0d0d; font-weight: 500; }
+  </style>
+</head>
+<body class="bg-paper text-ink min-h-screen">
+
+  <!-- HEADER -->
+  <header class="border-b border-line bg-paper/90 sticky top-0 z-10 backdrop-blur-sm">
+    <div class="max-w-5xl mx-auto px-5 py-4 flex items-center justify-between">
+      <a href="./index.html" class="flex items-center">
+        <img src="./images/logo_ludosphere.png" alt="Ludo'sphère" class="h-14 w-auto" />
+      </a>
+      <nav class="hidden sm:flex items-center gap-6 text-sm text-zinc-400">
+        <a href="./index.html" class="nav-link">Accueil</a>
+        <a href="./apropos.html" class="nav-link active">À propos</a>
+        <a href="mailto:ludosphere.asso@gmail.com" class="font-medium border border-line rounded-full px-4 py-1.5 hover:bg-ink hover:text-paper hover:border-ink transition-all duration-200 text-ink">Nous écrire</a>
+      </nav>
+      <!-- Menu mobile -->
+      <a href="./index.html" class="sm:hidden text-sm text-zinc-400 nav-link">← Accueil</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="max-w-5xl mx-auto px-5 pt-14 pb-10 animate-fade-up">
+    <p class="text-xs font-medium tracking-widest uppercase text-accent mb-3">Qui sommes-nous ?</p>
+    <h1 class="font-display font-extrabold text-4xl sm:text-5xl leading-tight tracking-tight mb-4">
+      L'association<br>Ludo'sphère
+    </h1>
+    <p class="text-base text-zinc-500 max-w-lg leading-relaxed">
+      <!-- ✏️ Modifiez cette description -->
+      Une association conviviale basée à Vallet, réunissant passionnés de jeux de société
+      autour de soirées mensuelles ouvertes à tous.
+    </p>
+  </section>
+
+  <!-- STATS -->
+  <section class="max-w-5xl mx-auto px-5 pb-14 animate-fade-up">
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <!-- ✏️ Modifiez ces chiffres -->
+      <div class="stat-card bg-white rounded-xl p-5">
+        <div class="font-display font-extrabold text-3xl mb-1">2022</div>
+        <div class="text-xs text-zinc-400 uppercase tracking-wide">Année de création</div>
+      </div>
+      <div class="stat-card bg-white rounded-xl p-5">
+        <div class="font-display font-extrabold text-3xl mb-1">30+</div>
+        <div class="text-xs text-zinc-400 uppercase tracking-wide">Membres</div>
+      </div>
+      <div class="stat-card bg-white rounded-xl p-5">
+        <div class="font-display font-extrabold text-3xl mb-1">12</div>
+        <div class="text-xs text-zinc-400 uppercase tracking-wide">Soirées par an</div>
+      </div>
+      <div class="stat-card bg-white rounded-xl p-5">
+        <div class="font-display font-extrabold text-3xl mb-1">100+</div>
+        <div class="text-xs text-zinc-400 uppercase tracking-wide">Jeux disponibles</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTRE HISTOIRE + PHOTO -->
+  <section class="max-w-5xl mx-auto px-5 pb-16 animate-fade-up-2">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h2 class="font-display font-bold text-2xl mb-4">Notre histoire</h2>
+        <!-- ✏️ Modifiez ce texte -->
+        <p class="text-sm text-zinc-500 leading-relaxed mb-3">
+          Ludo'sphère est née de la rencontre de quelques amis passionnés de jeux de société, réunis autour
+          d'une idée simple : créer un espace convivial où petits et grands peuvent découvrir,
+          apprendre et s'amuser ensemble.
+        </p>
+        <p class="text-sm text-zinc-500 leading-relaxed mb-3">
+          Depuis notre création, nous organisons chaque mois des soirées thématiques dans la salle
+          Simone de Beauvoir à Vallet — stratégie, ambiance, coopératif, escape game, TCG...
+          Chaque soirée est une nouvelle aventure !
+        </p>
+        <p class="text-sm text-zinc-500 leading-relaxed">
+          L'association est ouverte à tous, débutants comme joueurs confirmés. Notre seule règle :
+          bonne humeur et fair-play obligatoires. 🎲
+        </p>
+      </div>
+      <div class="photo-card h-72 bg-mist rounded-xl">
+        <!-- ✏️ Remplace par ./images/histoire.jpg -->
+        <img src="./images/histoire.jpg" alt="Histoire de Ludo'sphère"
+             class="w-full h-full object-cover rounded-xl"
+             onerror="this.src='https://images.unsplash.com/photo-1632501641765-e568d28b0015?w=800&q=80'" />
+      </div>
+    </div>
+  </section>
+
+  <!-- L'ÉQUIPE -->
+  <section class="max-w-5xl mx-auto px-5 pb-16 animate-fade-up-3">
+    <div class="flex items-center gap-4 mb-8">
+      <h2 class="font-display font-bold text-2xl">L'équipe</h2>
+      <div class="flex-1 h-px bg-line"></div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+      <!-- ✏️ Membre 1 -->
+      <div class="bg-white rounded-xl p-6 text-center border border-line">
+        <div class="photo-card w-20 h-20 rounded-full bg-mist mx-auto mb-4">
+          <img src="./images/equipe_jfp.jpg" alt="Jean-François"
+               class="w-full h-full object-cover rounded-full"
+               onerror="this.parentElement.innerHTML='<div class=\'w-20 h-20 rounded-full bg-ink text-paper flex items-center justify-center font-display font-bold text-lg mx-auto\'>JFP</div>'" />
+        </div>
+        <p class="font-display font-bold text-base">Jean-François</p>
+        <p class="text-xs text-accent font-medium uppercase tracking-wide mt-1 mb-3">Président</p>
+        <p class="text-xs text-zinc-400 leading-relaxed">
+          <!-- ✏️ Bio courte -->
+          Fondateur de l'asso, fan de jeux de stratégie. À l'origine de Ludo'sphère depuis le premier jour.
+        </p>
+      </div>
+
+      <!-- ✏️ Membre 2 -->
+      <div class="bg-white rounded-xl p-6 text-center border border-line">
+        <div class="photo-card w-20 h-20 rounded-full bg-mist mx-auto mb-4">
+          <img src="./images/equipe_ja.jpg" alt="Jeremie"
+               class="w-full h-full object-cover rounded-full"
+               onerror="this.parentElement.innerHTML='<div class=\'w-20 h-20 rounded-full bg-ink text-paper flex items-center justify-center font-display font-bold text-lg mx-auto\'>JA</div>'" />
+        </div>
+        <p class="font-display font-bold text-base">Jeremie</p>
+        <p class="text-xs text-accent font-medium uppercase tracking-wide mt-1 mb-3">Secrétaire</p>
+        <p class="text-xs text-zinc-400 leading-relaxed">
+          <!-- ✏️ Bio courte -->
+          Organisateur hors pair, amateur de jeux coopératifs. Gère la communication et les événements.
+        </p>
+      </div>
+
+      <!-- ✏️ Membre 3 -->
+      <div class="bg-white rounded-xl p-6 text-center border border-line">
+        <div class="photo-card w-20 h-20 rounded-full bg-mist mx-auto mb-4">
+          <img src="./images/equipe_rg.jpg" alt="Régis"
+               class="w-full h-full object-cover rounded-full"
+               onerror="this.parentElement.innerHTML='<div class=\'w-20 h-20 rounded-full bg-ink text-paper flex items-center justify-center font-display font-bold text-lg mx-auto\'>RG</div>'" />
+        </div>
+        <p class="font-display font-bold text-base">Régis</p>
+        <p class="text-xs text-accent font-medium uppercase tracking-wide mt-1 mb-3">Trésorier</p>
+        <p class="text-xs text-zinc-400 leading-relaxed">
+          <!-- ✏️ Bio courte -->
+          Passionné de TCG et de jeux d'ambiance. Veille sur les finances et la ludothèque de l'asso.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- NOS ACTIVITÉS -->
+  <section class="max-w-5xl mx-auto px-5 pb-16 animate-fade-up-4">
+    <div class="flex items-center gap-4 mb-8">
+      <h2 class="font-display font-bold text-2xl">Nos activités</h2>
+      <div class="flex-1 h-px bg-line"></div>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+      <div class="bg-white rounded-xl p-5 border border-line">
+        <div class="text-3xl mb-3">♟️</div>
+        <h3 class="font-display font-bold text-sm mb-2">Soirées Stratégie</h3>
+        <p class="text-xs text-zinc-400 leading-relaxed">Wingspan, Terraforming Mars, Scythe, Twilight Imperium... Pour les amateurs de réflexion et de planification.</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-line">
+        <div class="text-3xl mb-3">🤝</div>
+        <h3 class="font-display font-bold text-sm mb-2">Soirées Coopératives</h3>
+        <p class="text-xs text-zinc-400 leading-relaxed">Pandemic, Spirit Island, Gloomhaven... On gagne ensemble ou on perd ensemble !</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-line">
+        <div class="text-3xl mb-3">🎉</div>
+        <h3 class="font-display font-bold text-sm mb-2">Soirées Ambiance</h3>
+        <p class="text-xs text-zinc-400 leading-relaxed">Time's Up, Blanc-Manger Coco, Codenames... Rires et bonne humeur garantis !</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-line">
+        <div class="text-3xl mb-3">🔐</div>
+        <h3 class="font-display font-bold text-sm mb-2">Soirées Escape</h3>
+        <p class="text-xs text-zinc-400 leading-relaxed">Unlock!, Exit, Deckscape... Des énigmes à résoudre en équipe contre la montre.</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-line">
+        <div class="text-3xl mb-3">🃏</div>
+        <h3 class="font-display font-bold text-sm mb-2">Soirées TCG</h3>
+        <p class="text-xs text-zinc-400 leading-relaxed">Magic the Gathering, Pokémon, Flesh and Blood... Pour les collectionneurs et duellistes.</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-line">
+        <div class="text-3xl mb-3">🌱</div>
+        <h3 class="font-display font-bold text-sm mb-2">Soirées Découverte</h3>
+        <p class="text-xs text-zinc-400 leading-relaxed">Parfaites pour les débutants ! Des jeux simples et accessibles pour découvrir l'univers ludique.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOS JEUX PHARES -->
+  <section class="max-w-5xl mx-auto px-5 pb-20 animate-fade-up-4">
+    <div class="flex items-center gap-4 mb-8">
+      <h2 class="font-display font-bold text-2xl">Nos jeux phares</h2>
+      <div class="flex-1 h-px bg-line"></div>
+      <span class="text-xs text-zinc-400 italic">Ludothèque de l'asso</span>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+
+      <!-- ✏️ Ajoutez/modifiez les jeux — remplacez les images par ./images/jeu_nom.jpg -->
+      <div class="jeu-card bg-white rounded-xl overflow-hidden border border-line">
+        <div class="h-32 bg-mist">
+          <img src="./images/jeu_wingspan.jpg" alt="Wingspan"
+               class="w-full h-full object-cover"
+               onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-mist flex items-center justify-center text-3xl\'>🐦</div>'" />
+        </div>
+        <div class="p-3">
+          <p class="font-medium text-xs">Wingspan</p>
+          <p class="text-xs text-zinc-400">Stratégie · 1-5j</p>
+        </div>
+      </div>
+
+      <div class="jeu-card bg-white rounded-xl overflow-hidden border border-line">
+        <div class="h-32 bg-mist">
+          <img src="./images/jeu_pandemic.jpg" alt="Pandemic"
+               class="w-full h-full object-cover"
+               onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-mist flex items-center justify-center text-3xl\'>🦠</div>'" />
+        </div>
+        <div class="p-3">
+          <p class="font-medium text-xs">Pandemic</p>
+          <p class="text-xs text-zinc-400">Coopératif · 2-4j</p>
+        </div>
+      </div>
+
+      <div class="jeu-card bg-white rounded-xl overflow-hidden border border-line">
+        <div class="h-32 bg-mist">
+          <img src="./images/jeu_codenames.jpg" alt="Codenames"
+               class="w-full h-full object-cover"
+               onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-mist flex items-center justify-center text-3xl\'>🔤</div>'" />
+        </div>
+        <div class="p-3">
+          <p class="font-medium text-xs">Codenames</p>
+          <p class="text-xs text-zinc-400">Ambiance · 2-8j</p>
+        </div>
+      </div>
+
+      <div class="jeu-card bg-white rounded-xl overflow-hidden border border-line">
+        <div class="h-32 bg-mist">
+          <img src="./images/jeu_unlock.jpg" alt="Unlock!"
+               class="w-full h-full object-cover"
+               onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-mist flex items-center justify-center text-3xl\'>🔐</div>'" />
+        </div>
+        <div class="p-3">
+          <p class="font-medium text-xs">Unlock!</p>
+          <p class="text-xs text-zinc-400">Escape · 1-6j</p>
+        </div>
+      </div>
+
+      <div class="jeu-card bg-white rounded-xl overflow-hidden border border-line">
+        <div class="h-32 bg-mist">
+          <img src="./images/jeu_terraforming.jpg" alt="Terraforming Mars"
+               class="w-full h-full object-cover"
+               onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-mist flex items-center justify-center text-3xl\'>🔴</div>'" />
+        </div>
+        <div class="p-3">
+          <p class="font-medium text-xs">Terraforming Mars</p>
+          <p class="text-xs text-zinc-400">Stratégie · 1-5j</p>
+        </div>
+      </div>
+
+      <div class="jeu-card bg-white rounded-xl overflow-hidden border border-line">
+        <div class="h-32 bg-mist">
+          <img src="./images/jeu_magic.jpg" alt="Magic the Gathering"
+               class="w-full h-full object-cover"
+               onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-mist flex items-center justify-center text-3xl\'>🃏</div>'" />
+        </div>
+        <div class="p-3">
+          <p class="font-medium text-xs">Magic the Gathering</p>
+          <p class="text-xs text-zinc-400">TCG · 2j</p>
+        </div>
+      </div>
+
+      <div class="jeu-card bg-white rounded-xl overflow-hidden border border-line">
+        <div class="h-32 bg-mist">
+          <img src="./images/jeu_spirit.jpg" alt="Spirit Island"
+               class="w-full h-full object-cover"
+               onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-mist flex items-center justify-center text-3xl\'>🌊</div>'" />
+        </div>
+        <div class="p-3">
+          <p class="font-medium text-xs">Spirit Island</p>
+          <p class="text-xs text-zinc-400">Coopératif · 1-4j</p>
+        </div>
+      </div>
+
+      <div class="jeu-card bg-white rounded-xl overflow-hidden border border-line">
+        <div class="h-32 bg-mist">
+          <img src="./images/jeu_timesup.jpg" alt="Time's Up"
+               class="w-full h-full object-cover"
+               onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-mist flex items-center justify-center text-3xl\'>⏱️</div>'" />
+        </div>
+        <div class="p-3">
+          <p class="font-medium text-xs">Time's Up</p>
+          <p class="text-xs text-zinc-400">Ambiance · 4-12j</p>
+        </div>
+      </div>
+
+    </div>
+    <p class="text-xs text-zinc-400 mt-4 text-center">
+      <!-- ✏️ Modifiez ce texte -->
+      Et bien d'autres encore ! Notre ludothèque s'agrandit à chaque soirée. 🎲
+    </p>
+  </section>
+
+  <!-- CTA rejoindre -->
+  <section class="max-w-5xl mx-auto px-5 pb-20">
+    <div class="bg-ink text-paper rounded-2xl p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div>
+        <h2 class="font-display font-extrabold text-2xl mb-2">Rejoindre Ludo'sphère</h2>
+        <p class="text-sm text-zinc-400 max-w-sm leading-relaxed">Adhésion annuelle 20 € · Entrée libre aux soirées · Accès à notre ludothèque</p>
+      </div>
+      <div class="flex gap-3 flex-shrink-0">
+        <a href="https://www.helloasso.com/associations/ludo-sphere" target="_blank" rel="noopener"
+           class="bg-accent text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-blue-700 transition-colors">
+          💚 Adhérer sur HelloAsso
+        </a>
+        <a href="./index.html"
+           class="border border-zinc-600 text-paper text-sm font-medium px-5 py-2.5 rounded-full hover:border-white transition-colors">
+          Voir les soirées
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-line">
+    <div class="max-w-5xl mx-auto px-5 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-zinc-400">
+      <span>🎲 © 2025 Ludo'sphère — Vallet</span>
+      <div class="flex gap-4">
+        <a href="./index.html" class="hover:text-ink transition-colors">Accueil</a>
+        <a href="./apropos.html" class="hover:text-ink transition-colors">À propos</a>
+        <a href="mailto:ludosphere.asso@gmail.com" class="hover:text-ink transition-colors">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
