@@ -97,7 +97,7 @@
       <div class="flex items-center">
         <img src="./images/logo_ludosphere.png" alt="Ludo'sphère" class="h-14 w-auto" />
       </div>
-      <a href="/cdn-cgi/l/email-protection#254950414a56554d4057400b4456564a654248444c490b464a48" class="text-sm font-medium border border-line rounded-full px-4 py-1.5 hover:bg-ink hover:text-paper hover:border-ink transition-all duration-200">
+      <a href="mailto:ludosphere.asso@gmail.com" class="text-sm font-medium border border-line rounded-full px-4 py-1.5 hover:bg-ink hover:text-paper hover:border-ink transition-all duration-200">
         Nous écrire
       </a>
     </div>
@@ -343,16 +343,17 @@
     function getEventIcon(title) {
       if (!title) return '🎲';
       var t = title.toLowerCase();
-      if (t.indexOf('strat') !== -1 || t.indexOf('wargame') !== -1)                                    return '♟️';
-      if (t.indexOf('ambiance') !== -1 || t.indexOf('apéro') !== -1 || t.indexOf('party') !== -1)      return '🎉';
-      if (t.indexOf('coop') !== -1)                                                                     return '🤝';
-      if (t.indexOf('escape') !== -1 || t.indexOf('enquête') !== -1 || t.indexOf('mystère') !== -1)    return '🔐';
-      if (t.indexOf('découverte') !== -1 || t.indexOf('initiation') !== -1 || t.indexOf('débutant') !== -1) return '🌱';
-      if (t.indexOf('rpg') !== -1 || t.indexOf('rôle') !== -1)                                         return '🐉';
-      if (t.indexOf('tournoi') !== -1 || t.indexOf('compétition') !== -1)                              return '🏆';
-      if (t.indexOf('famille') !== -1 || t.indexOf('enfant') !== -1)                                   return '👨‍👩‍👧';
-      if (t.indexOf('tcg') !== -1 || t.indexOf('carte') !== -1 || t.indexOf('magic') !== -1 || t.indexOf('pokemon') !== -1 || t.indexOf('yugioh') !== -1) return '🃏';
-      return '🎲';
+      var icons = [];
+      if (t.indexOf('strat') !== -1 || t.indexOf('wargame') !== -1)                                         icons.push('♟️');
+      if (t.indexOf('ambiance') !== -1 || t.indexOf('apéro') !== -1 || t.indexOf('party') !== -1)           icons.push('🎉');
+      if (t.indexOf('coop') !== -1)                                                                          icons.push('🤝');
+      if (t.indexOf('escape') !== -1 || t.indexOf('enquête') !== -1 || t.indexOf('mystère') !== -1)         icons.push('🔐');
+      if (t.indexOf('découverte') !== -1 || t.indexOf('initiation') !== -1 || t.indexOf('débutant') !== -1) icons.push('🌱');
+      if (t.indexOf('rpg') !== -1 || t.indexOf('rôle') !== -1)                                              icons.push('🐉');
+      if (t.indexOf('tournoi') !== -1 || t.indexOf('compétition') !== -1)                                   icons.push('🏆');
+      if (t.indexOf('famille') !== -1 || t.indexOf('enfant') !== -1)                                        icons.push('👨‍👩‍👧');
+      if (t.indexOf('tcg') !== -1 || t.indexOf('carte') !== -1 || t.indexOf('magic') !== -1 || t.indexOf('pokemon') !== -1 || t.indexOf('yugioh') !== -1) icons.push('🃏');
+      return icons.length ? icons.join('') : '🎲';
     }
 
     function setView(v) {
