@@ -106,7 +106,7 @@
 
   <!-- LAYOUT -->
   <main class="max-w-5xl mx-auto px-5 pb-20 grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-up-2">
- 
+
     <!-- COLONNE ÉVÉNEMENTS -->
     <div class="lg:col-span-2">
 
@@ -137,6 +137,7 @@
       <div id="view-month" class="hidden">
         <div id="calendar-grid"></div>
       </div>
+
     </div>
 
     <!-- SIDEBAR -->
@@ -156,9 +157,9 @@
       <div class="border border-line rounded-xl p-5">
         <p class="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">Infos pratiques</p>
         <ul class="flex flex-col gap-3 text-sm">
-          <li class="flex gap-2 items-start"><span class="mt-0.5">📍</span><span>Salle Simone de Beauvoir, rue Emile Gabory 44330 VALLET</span></li>
-          <li class="flex gap-2 items-start"><span class="mt-0.5">🕕</span><span>Accueil dès 20h30 · Parties jusqu'à 23h...</span></li>
-          <li class="flex gap-2 items-start"><span class="mt-0.5">🎟</span><span>Entrée libre · Adhésion annuelle 20 €</span></li>
+          <li class="flex gap-2 items-start"><span class="mt-0.5">📍</span><span>Salle des fêtes, 12 rue du Jeu</span></li>
+          <li class="flex gap-2 items-start"><span class="mt-0.5">🕕</span><span>Accueil dès 18h30 · Parties jusqu'à 23h</span></li>
+          <li class="flex gap-2 items-start"><span class="mt-0.5">🎟</span><span>Entrée libre · Adhésion annuelle 10 €</span></li>
         </ul>
       </div>
 
@@ -169,20 +170,20 @@
           <li class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-full bg-mist grid place-items-center text-xs font-bold flex-shrink-0">ML</div>
             <div>
-              <p class="text-sm font-medium leading-tight">Jean-François Pineau</p>
-              <p class="text-xs text-zinc-400">Président</p>
+              <p class="text-sm font-medium leading-tight">Marie Lefebvre</p>
+              <p class="text-xs text-zinc-400">Présidente</p>
             </div>
           </li>
           <li class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-full bg-mist grid place-items-center text-xs font-bold flex-shrink-0">TC</div>
             <div>
-              <p class="text-sm font-medium leading-tight"></p>
-              <p class="text-xs text-zinc-400"></p>
+              <p class="text-sm font-medium leading-tight">Thomas Collet</p>
+              <p class="text-xs text-zinc-400">Secrétaire</p>
             </div>
           </li>
           <li class="mt-1">
             <a href="/cdn-cgi/l/email-protection#bad9d5d4cedbd9cefaccd5cec8dfdbc9c9d594dcc8" class="flex items-center gap-2 text-sm text-accent hover:underline">
-              <span>✉️</span> <span class="__cf_email__" data-cfemail="d1b2bebfa5b0b2a591a7bea5a3b4b0a2a2beffb7a3">ludosphere.asso@gmail.com</span>
+              <span>✉️</span> <span class="__cf_email__" data-cfemail="d1b2bebfa5b0b2a591a7bea5a3b4b0a2a2beffb7a3">[email&#160;protected]</span>
             </a>
           </li>
         </ul>
@@ -231,8 +232,8 @@
     // ║  ✏️  2 VALEURS À REMPLACER                      ║
     // ╚══════════════════════════════════════════════════╝
     const CONFIG = {
-      API_KEY:     'AIzaSyDoldk55agZMfF_WVX_dGWhxAdI_5A5LcI',              // Google Cloud Console
-      CALENDAR_ID: '35d4ce4aba23cb63b35de523f9c911bd73b4d92653e6f3e608b80f9e11e446c6%40group.calendar.google.com',// Paramètres Google Agenda
+      API_KEY:     'AIzaSyDoldk55agZMfF_WVX_dGWhxAdI_5A5LcI',
+      CALENDAR_ID: '35d4ce4aba23cb63b35de523f9c911bd73b4d92653e6f3e608b80f9e11e446c6@group.calendar.google.com',
       MAX_RESULTS: 15,
     };
 
@@ -394,7 +395,7 @@
 
     // ── Init ──
     async function init() {
-      const isDemo = CONFIG.API_KEY === 'VOTRE_CLE_API_GOOGLE';
+      const isDemo = CONFIG.API_KEY === 'COLLE_TA_CLE_API_ICI';
       let events = [];
 
       if (isDemo) {
