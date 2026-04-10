@@ -4,33 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ludo'sphère · Soirées Jeux de Société</title>
-
-  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Fonts : Syne (display) + Instrument Sans (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
             display: ['Syne', 'sans-serif'],
-            body:    ['Instrument Sans', 'sans-serif'],
+            body: ['Instrument Sans', 'sans-serif'],
           },
           colors: {
-            ink:    '#0d0d0d',
-            paper:  '#f9f8f6',
-            mist:   '#f0ede8',
-            line:   '#e2ddd7',
+            ink: '#0d0d0d',
+            paper: '#f9f8f6',
+            mist: '#f0ede8',
+            line: '#e2ddd7',
             accent: '#2563eb',
-            soft:   '#93c5fd',
+            soft: '#93c5fd',
           },
           keyframes: {
             fadeUp: {
-              '0%':   { opacity: '0', transform: 'translateY(16px)' },
+              '0%': { opacity: '0', transform: 'translateY(16px)' },
               '100%': { opacity: '1', transform: 'translateY(0)' },
             }
           },
@@ -38,12 +33,12 @@
             'fade-up':   'fadeUp .45s ease both',
             'fade-up-2': 'fadeUp .45s .1s ease both',
             'fade-up-3': 'fadeUp .45s .2s ease both',
+            'fade-up-4': 'fadeUp .45s .3s ease both',
           }
         }
       }
     }
   </script>
-
   <style>
     body { font-family: 'Instrument Sans', sans-serif; }
     ::-webkit-scrollbar { width: 4px; }
@@ -73,57 +68,89 @@
       animation: shimmer 1.2s infinite;
       border-radius: 6px;
     }
+
+    /* Galerie */
+    .photo-card { overflow: hidden; border-radius: 12px; }
+    .photo-card img { transition: transform .4s ease; width: 100%; height: 100%; object-fit: cover; }
+    .photo-card:hover img { transform: scale(1.04); }
+
+    /* Badge type soirée */
+    .type-badge {
+      display: inline-flex; align-items: center; gap: .3rem;
+      font-size: .65rem; font-weight: 500; letter-spacing: .06em;
+      text-transform: uppercase; padding: .15rem .5rem;
+      border-radius: 99px; border: 1px solid #e2ddd7;
+      color: #888; margin-bottom: .3rem;
+    }
   </style>
 </head>
-
 <body class="bg-paper text-ink min-h-screen">
 
-  <!-- HEADER -->
+  <!-- ══ HEADER ══ -->
   <header class="border-b border-line bg-paper/90 sticky top-0 z-10 backdrop-blur-sm">
     <div class="max-w-5xl mx-auto px-5 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <div class="w-8 h-8 bg-ink rounded-md grid place-items-center text-paper text-base select-none">🎲</div>
         <span class="font-display font-bold text-lg tracking-tight">Ludo'sphère</span>
       </div>
-      <a href="/cdn-cgi/l/email-protection#791a16170d181a0d390f160d0b1c180a0a16571f0b" class="text-sm font-medium border border-line rounded-full px-4 py-1.5
-                hover:bg-ink hover:text-paper hover:border-ink transition-all duration-200">
+      <a href="mailto:ludosphere.asso@gmail.com"
+         class="text-sm font-medium border border-line rounded-full px-4 py-1.5 hover:bg-ink hover:text-paper hover:border-ink transition-all duration-200">
         Nous écrire
       </a>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="max-w-5xl mx-auto px-5 pt-14 pb-10 animate-fade-up">
-    <p class="text-xs font-medium tracking-widest uppercase text-accent mb-3">Association ludique</p>
-    <h1 class="font-display font-extrabold text-5xl sm:text-6xl leading-none tracking-tight mb-4">
-      Prochaines<br>soirées jeux
-    </h1>
-    <p class="text-base text-zinc-500 max-w-md leading-relaxed">
-      Des parties conviviales chaque mois — stratégie, coopératif, ambiance.
-      Ouvert à tous, débutants bienvenus.
-    </p>
+  <!-- ══ HERO avec bannière image ══ -->
+  <section class="max-w-5xl mx-auto px-5 pt-12 pb-10 animate-fade-up">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div>
+        <p class="text-xs font-medium tracking-widest uppercase text-accent mb-3">Association ludique · Vallet</p>
+        <h1 class="font-display font-extrabold text-5xl sm:text-6xl leading-none tracking-tight mb-4">
+          Prochaines<br>soirées jeux
+        </h1>
+        <p class="text-base text-zinc-500 max-w-sm leading-relaxed mb-6">
+          Des parties conviviales chaque mois — stratégie, coopératif, ambiance.
+          Ouvert à tous, débutants bienvenus.
+        </p>
+        <!-- Pastilles types de soirées -->
+        <div class="flex flex-wrap gap-2">
+          <span class="type-badge">♟️ Stratégie</span>
+          <span class="type-badge">🎉 Ambiance</span>
+          <span class="type-badge">🤝 Coopératif</span>
+          <span class="type-badge">🔐 Escape</span>
+          <span class="type-badge">🌱 Découverte</span>
+        </div>
+      </div>
+      <!-- Image bannière hero -->
+      <!-- ✏️ Remplace src par ./images/hero.jpg quand tu as ta photo -->
+      <div class="photo-card h-64 md:h-72 bg-mist">
+        <img
+          src="https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=800&q=80"
+          alt="Soirée jeux de société Ludo'sphère"
+          class="w-full h-full object-cover rounded-xl"
+          onerror="this.parentElement.innerHTML='<div class=\'w-full h-full rounded-xl bg-mist flex items-center justify-center text-5xl\'>🎲</div>'"
+        />
+      </div>
+    </div>
   </section>
 
-  <!-- LAYOUT -->
-  <main class="max-w-5xl mx-auto px-5 pb-20 grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-up-2">
+  <!-- ══ LAYOUT PRINCIPAL ══ -->
+  <main class="max-w-5xl mx-auto px-5 pb-16 grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-up-2">
 
     <!-- COLONNE ÉVÉNEMENTS -->
     <div class="lg:col-span-2">
-
-      <!-- Filtres vue -->
       <div class="flex items-center gap-2 mb-6">
         <button onclick="setView('list')" id="btn-list"
           class="text-xs font-medium px-3 py-1.5 rounded-full border border-ink bg-ink text-paper transition-all">
-          Liste
+          📋 Liste
         </button>
         <button onclick="setView('month')" id="btn-month"
           class="text-xs font-medium px-3 py-1.5 rounded-full border border-line text-zinc-500 hover:border-ink hover:text-ink transition-all">
-          Mois
+          📅 Mois
         </button>
         <span class="ml-auto text-xs text-zinc-400" id="event-count"></span>
       </div>
 
-      <!-- Vue liste -->
       <div id="view-list">
         <div id="events-container" class="flex flex-col gap-1"></div>
         <div id="skeleton" class="flex flex-col gap-2">
@@ -133,11 +160,9 @@
         </div>
       </div>
 
-      <!-- Vue mois -->
       <div id="view-month" class="hidden">
         <div id="calendar-grid"></div>
       </div>
-
     </div>
 
     <!-- SIDEBAR -->
@@ -145,7 +170,8 @@
 
       <!-- Prochain événement -->
       <div id="next-card" class="bg-ink text-paper rounded-xl p-5 hidden">
-        <p class="text-xs font-medium tracking-widest uppercase text-soft mb-3">Prochain rendez-vous</p>
+        <p class="text-xs font-medium tracking-widest uppercase text-soft mb-3">⏰ Prochain rendez-vous</p>
+        <div id="next-icon" class="text-3xl mb-2"></div>
         <div id="next-date"  class="font-display font-extrabold text-4xl leading-none text-white mb-1"></div>
         <div id="next-month" class="text-xs text-zinc-400 mb-3 uppercase tracking-widest"></div>
         <div id="next-title" class="font-medium text-base mb-1"></div>
@@ -155,35 +181,41 @@
 
       <!-- Infos pratiques -->
       <div class="border border-line rounded-xl p-5">
-        <p class="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">Infos pratiques</p>
+        <p class="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">📍 Infos pratiques</p>
         <ul class="flex flex-col gap-3 text-sm">
-          <li class="flex gap-2 items-start"><span class="mt-0.5">📍</span><span>Salle Simone de Beauvoir, rue Emile Gabory 44330 VALLET</span></li>
-          <li class="flex gap-2 items-start"><span class="mt-0.5">🕕</span><span>Accueil dès 20h30 · Parties jusqu'à 23h...</span></li>
-          <li class="flex gap-2 items-start"><span class="mt-0.5">🎟</span><span>Entrée libre · Adhésion annuelle 20 €</span></li>
+          <li class="flex gap-2 items-start">
+            <span class="mt-0.5">🏛️</span>
+            <span>Salle Simone de Beauvoir<br><span class="text-zinc-400">Rue Emile Gabory — 44330 Vallet</span></span>
+          </li>
+          <li class="flex gap-2 items-start">
+            <span class="mt-0.5">🕗</span>
+            <span>Accueil dès 20h30<br><span class="text-zinc-400">Parties jusqu'à 23h</span></span>
+          </li>
+          <li class="flex gap-2 items-start">
+            <span class="mt-0.5">🎟️</span>
+            <span>Entrée libre<br><span class="text-zinc-400">Adhésion annuelle 20 €</span></span>
+          </li>
+          <li class="flex gap-2 items-start">
+            <span class="mt-0.5">📅</span>
+            <span>Fréquence mensuelle<br><span class="text-zinc-400">Voir le calendrier</span></span>
+          </li>
         </ul>
       </div>
 
-      <!-- Contacts -->
+      <!-- Contact -->
       <div class="border border-line rounded-xl p-5">
-        <p class="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">Contact</p>
+        <p class="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">👋 Contact</p>
         <ul class="flex flex-col gap-3">
           <li class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-mist grid place-items-center text-xs font-bold flex-shrink-0">ML</div>
+            <div class="w-9 h-9 rounded-full bg-ink text-paper grid place-items-center text-xs font-bold flex-shrink-0">JP</div>
             <div>
-              <p class="text-sm font-medium leading-tight">Marie Lefebvre</p>
-              <p class="text-xs text-zinc-400">Présidente</p>
+              <p class="text-sm font-medium leading-tight">Jean-François Pineau</p>
+              <p class="text-xs text-zinc-400">Président</p>
             </div>
           </li>
-          <li class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-mist grid place-items-center text-xs font-bold flex-shrink-0">TC</div>
-            <div>
-              <p class="text-sm font-medium leading-tight">Thomas Collet</p>
-              <p class="text-xs text-zinc-400">Secrétaire</p>
-            </div>
-          </li>
-          <li class="mt-1">
-            <a href="/cdn-cgi/l/email-protection#bad9d5d4cedbd9cefaccd5cec8dfdbc9c9d594dcc8" class="flex items-center gap-2 text-sm text-accent hover:underline">
-              <span>✉️</span> <span class="__cf_email__" data-cfemail="d1b2bebfa5b0b2a591a7bea5a3b4b0a2a2beffb7a3">[email&#160;protected]</span>
+          <li class="mt-1 pt-3 border-t border-line">
+            <a href="mailto:ludosphere.asso@gmail.com" class="flex items-center gap-2 text-sm text-accent hover:underline">
+              ✉️ ludosphere.asso@gmail.com
             </a>
           </li>
         </ul>
@@ -191,24 +223,25 @@
 
       <!-- Liens -->
       <div class="border border-line rounded-xl p-5">
-        <p class="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">Liens utiles</p>
+        <p class="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">🔗 Liens utiles</p>
         <ul class="flex flex-col gap-0">
           <li>
             <a href="https://boardgamegeek.com" target="_blank" rel="noopener"
                class="flex items-center justify-between text-sm py-2.5 border-b border-line hover:text-accent transition-colors group">
-              <span>BoardGameGeek</span><span class="text-zinc-300 group-hover:text-accent">↗</span>
+              <span>🎲 BoardGameGeek</span><span class="text-zinc-300 group-hover:text-accent">↗</span>
             </a>
           </li>
           <li>
             <a href="#" target="_blank" rel="noopener"
                class="flex items-center justify-between text-sm py-2.5 border-b border-line hover:text-accent transition-colors group">
-              <span>Notre page Facebook</span><span class="text-zinc-300 group-hover:text-accent">↗</span>
+              <span>📘 Notre page Facebook</span><span class="text-zinc-300 group-hover:text-accent">↗</span>
             </a>
           </li>
           <li>
-            <a href="#" target="_blank" rel="noopener"
+            <a href="https://calendar.google.com/calendar/u/2?cid=MzVkNGNlNGFiYTIzY2I2M2IzNWRlNTIzZjljOTExYmQ3M2I0ZDkyNjUzZTZmM2U2MDhiODBmOWUxMWU0NDZjNkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t"
+               target="_blank" rel="noopener"
                class="flex items-center justify-between text-sm py-2.5 hover:text-accent transition-colors group">
-              <span>S'abonner au calendrier</span><span class="text-zinc-300 group-hover:text-accent">↗</span>
+              <span>📆 S'abonner au calendrier</span><span class="text-zinc-300 group-hover:text-accent">↗</span>
             </a>
           </li>
         </ul>
@@ -217,16 +250,63 @@
     </aside>
   </main>
 
-  <!-- FOOTER -->
+  <!-- ══ GALERIE PHOTOS ══ -->
+  <section class="max-w-5xl mx-auto px-5 pb-20 animate-fade-up-4">
+    <div class="flex items-center gap-4 mb-6">
+      <h2 class="font-display font-bold text-2xl">Nos soirées en images</h2>
+      <div class="flex-1 h-px bg-line"></div>
+      <!-- ✏️ Retire ce texte quand tu auras tes vraies photos -->
+      <span class="text-xs text-zinc-400 italic">Photos à venir</span>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+
+      <!-- ✏️ Pour chaque photo : remplace src par ./images/photo1.jpg etc. -->
+      <div class="photo-card col-span-2 h-52 bg-mist rounded-xl">
+        <img src="https://images.unsplash.com/photo-1632501641765-e568d28b0015?w=800&q=80"
+             alt="Soirée jeux" class="rounded-xl"
+             onerror="this.parentElement.innerHTML='<div class=\'w-full h-full rounded-xl bg-mist flex flex-col items-center justify-center gap-2\'><span class=\'text-4xl\'>🎲</span><span class=\'text-xs text-zinc-400\'>Photo à venir</span></div>'" />
+      </div>
+      <div class="photo-card h-52 bg-mist rounded-xl">
+        <img src="https://images.unsplash.com/photo-1606503153255-59d5e417c8d0?w=400&q=80"
+             alt="Soirée jeux" class="rounded-xl"
+             onerror="this.parentElement.innerHTML='<div class=\'w-full h-full rounded-xl bg-mist flex flex-col items-center justify-center gap-2\'><span class=\'text-4xl\'>♟️</span><span class=\'text-xs text-zinc-400\'>Photo à venir</span></div>'" />
+      </div>
+      <div class="photo-card h-52 bg-mist rounded-xl">
+        <img src="https://images.unsplash.com/photo-1553481187-be93c21490a9?w=400&q=80"
+             alt="Soirée jeux" class="rounded-xl"
+             onerror="this.parentElement.innerHTML='<div class=\'w-full h-full rounded-xl bg-mist flex flex-col items-center justify-center gap-2\'><span class=\'text-4xl\'>🤝</span><span class=\'text-xs text-zinc-400\'>Photo à venir</span></div>'" />
+      </div>
+      <div class="photo-card h-52 bg-mist rounded-xl">
+        <img src="https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?w=400&q=80"
+             alt="Soirée jeux" class="rounded-xl"
+             onerror="this.parentElement.innerHTML='<div class=\'w-full h-full rounded-xl bg-mist flex flex-col items-center justify-center gap-2\'><span class=\'text-4xl\'>🎉</span><span class=\'text-xs text-zinc-400\'>Photo à venir</span></div>'" />
+      </div>
+      <div class="photo-card h-52 bg-mist rounded-xl">
+        <img src="https://images.unsplash.com/photo-1585504198199-20277593b94f?w=400&q=80"
+             alt="Soirée jeux" class="rounded-xl"
+             onerror="this.parentElement.innerHTML='<div class=\'w-full h-full rounded-xl bg-mist flex flex-col items-center justify-center gap-2\'><span class=\'text-4xl\'>🔐</span><span class=\'text-xs text-zinc-400\'>Photo à venir</span></div>'" />
+      </div>
+      <div class="photo-card h-52 bg-mist rounded-xl">
+        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&q=80"
+             alt="Soirée jeux" class="rounded-xl"
+             onerror="this.parentElement.innerHTML='<div class=\'w-full h-full rounded-xl bg-mist flex flex-col items-center justify-center gap-2\'><span class=\'text-4xl\'>🌱</span><span class=\'text-xs text-zinc-400\'>Photo à venir</span></div>'" />
+      </div>
+
+    </div>
+    <!-- Message pratique pour remplacer les photos -->
+    <p class="text-xs text-zinc-400 mt-3 text-center">
+      Pour ajouter tes photos : crée un dossier <code class="bg-mist px-1 rounded">images/</code> dans GitHub et remplace les URLs par <code class="bg-mist px-1 rounded">./images/photo.jpg</code>
+    </p>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
   <footer class="border-t border-line">
     <div class="max-w-5xl mx-auto px-5 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-zinc-400">
-      <span>© 2025 Ludo'sphère</span>
+      <span>🎲 © 2025 Ludo'sphère — Vallet</span>
       <span>Calendrier synchronisé avec Google Agenda</span>
     </div>
   </footer>
 
-
-  <!-- JAVASCRIPT -->
   <script>
     // ╔══════════════════════════════════════════════════╗
     // ║  ✏️  2 VALEURS À REMPLACER                      ║
@@ -236,44 +316,67 @@
             CALENDAR_ID: '35d4ce4aba23cb63b35de523f9c911bd73b4d92653e6f3e608b80f9e11e446c6@group.calendar.google.com',
       MAX_RESULTS: 15
     };
- 
+
+    // ── Icônes automatiques selon mots-clés dans le titre ──
+    function getEventIcon(title) {
+      if (!title) return '🎲';
+      var t = title.toLowerCase();
+      if (t.indexOf('strat') !== -1 || t.indexOf('chess') !== -1 || t.indexOf('wargame') !== -1) return '♟️';
+      if (t.indexOf('ambiance') !== -1 || t.indexOf('apéro') !== -1 || t.indexOf('apero') !== -1 || t.indexOf('party') !== -1) return '🎉';
+      if (t.indexOf('coop') !== -1 || t.indexOf('coopératif') !== -1 || t.indexOf('cooperatif') !== -1) return '🤝';
+      if (t.indexOf('escape') !== -1 || t.indexOf('enquête') !== -1 || t.indexOf('enquete') !== -1 || t.indexOf('mystère') !== -1) return '🔐';
+      if (t.indexOf('découverte') !== -1 || t.indexOf('decouverte') !== -1 || t.indexOf('initiation') !== -1 || t.indexOf('débutant') !== -1) return '🌱';
+      if (t.indexOf('rpg') !== -1 || t.indexOf('rôle') !== -1 || t.indexOf('role') !== -1) return '🐉';
+      if (t.indexOf('tournoi') !== -1 || t.indexOf('compétition') !== -1 || t.indexOf('competition') !== -1) return '🏆';
+      if (t.indexOf('famille') !== -1 || t.indexOf('enfant') !== -1) return '👨‍👩‍👧';
+      return '🎲';
+    }
+
     var DEMO_EVENTS = [
       {
-        id: '1',
-        summary: 'Soirée Stratégie',
+        id: '1', summary: 'Soirée Stratégie',
         description: 'Au programme : Wingspan, Terraforming Mars, Scythe. Tous niveaux !',
         location: 'Salle Simone de Beauvoir, Vallet',
         start: { dateTime: new Date(Date.now() + 11 * 864e5).toISOString() }
       },
       {
-        id: '2',
-        summary: 'Soirée Ambiance',
+        id: '2', summary: 'Soirée Ambiance',
         description: "Blanc-Manger Coco, Time's Up, Codenames — rires garantis.",
         location: 'Salle Simone de Beauvoir, Vallet',
         start: { dateTime: new Date(Date.now() + 42 * 864e5).toISOString() }
       },
       {
-        id: '3',
-        summary: 'Soirée Coopérative',
-        description: 'Pandemic Legacy, Spirit Island, Gloomhaven — on joue ensemble !',
+        id: '3', summary: 'Soirée Coopérative',
+        description: 'Pandemic Legacy, Spirit Island — on joue ensemble !',
         location: 'Salle Simone de Beauvoir, Vallet',
         start: { dateTime: new Date(Date.now() + 73 * 864e5).toISOString() }
+      },
+      {
+        id: '4', summary: 'Soirée Escape',
+        description: 'Unlock!, Exit, Deckscape — résolvez les énigmes !',
+        location: 'Salle Simone de Beauvoir, Vallet',
+        start: { dateTime: new Date(Date.now() + 104 * 864e5).toISOString() }
+      },
+      {
+        id: '5', summary: 'Soirée Découverte',
+        description: 'Parfaite pour les débutants — jeux simples et accessibles.',
+        location: 'Salle Simone de Beauvoir, Vallet',
+        start: { dateTime: new Date(Date.now() + 135 * 864e5).toISOString() }
       }
     ];
- 
+
     var MONTHS      = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
     var MONTHS_LONG = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
     var DAYS        = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
- 
+
     function getDate(ev) {
       return new Date(ev.start.dateTime || ev.start.date);
     }
- 
     function formatTime(d) {
       if (!d.getHours() && !d.getMinutes()) return 'Journée entière';
       return d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
     }
- 
+
     function setView(v) {
       document.getElementById('view-list').classList.toggle('hidden', v !== 'list');
       document.getElementById('view-month').classList.toggle('hidden', v !== 'month');
@@ -282,7 +385,7 @@
       document.getElementById('btn-list').className  = v === 'list'  ? active : inactive;
       document.getElementById('btn-month').className = v === 'month' ? active : inactive;
     }
- 
+
     function renderList(events) {
       var c = document.getElementById('events-container');
       c.innerHTML = '';
@@ -294,11 +397,13 @@
         var ev = events[i];
         var d = getDate(ev);
         var isToday = d.toDateString() === new Date().toDateString();
+        var icon = getEventIcon(ev.summary);
         var el = document.createElement('div');
         el.className = 'event-card rounded-lg px-4 py-4 flex gap-4 cursor-default';
         el.innerHTML =
-          '<div class="flex-shrink-0 w-12 text-center pt-0.5">' +
-            '<div class="text-2xl font-display font-extrabold leading-none">' + d.getDate() + '</div>' +
+          '<div class="flex-shrink-0 w-14 text-center pt-0.5">' +
+            '<div class="text-2xl mb-1">' + icon + '</div>' +
+            '<div class="text-xl font-display font-extrabold leading-none">' + d.getDate() + '</div>' +
             '<div class="text-xs text-zinc-400 uppercase tracking-wide">' + MONTHS[d.getMonth()] + '</div>' +
           '</div>' +
           '<div class="flex-1 min-w-0">' +
@@ -307,7 +412,7 @@
               (isToday ? '<span class="today-pill">Aujourd\'hui</span>' : '') +
             '</div>' +
             '<div class="text-xs text-zinc-400 mb-1">' +
-              formatTime(d) + (ev.location ? ' · ' + ev.location : '') +
+              '🕗 ' + formatTime(d) + (ev.location ? ' · 📍 ' + ev.location : '') +
             '</div>' +
             (ev.description
               ? '<p class="text-xs text-zinc-500 line-clamp-2 leading-relaxed">' + ev.description.replace(/<[^>]*>/g, '') + '</p>'
@@ -317,7 +422,7 @@
         c.appendChild(el);
       }
     }
- 
+
     function renderMonth(events) {
       var grid = document.getElementById('calendar-grid');
       grid.innerHTML = '';
@@ -326,12 +431,12 @@
       var month = now.getMonth();
       var daysInMonth = new Date(year, month + 1, 0).getDate();
       var firstDay    = (new Date(year, month, 1).getDay() + 6) % 7;
- 
+
       var title = document.createElement('div');
       title.className = 'font-display font-bold text-xl mb-4';
       title.textContent = MONTHS_LONG[month] + ' ' + year;
       grid.appendChild(title);
- 
+
       var hdr = document.createElement('div');
       hdr.className = 'grid grid-cols-7 mb-1';
       ['L','M','M','J','V','S','D'].forEach(function(d) {
@@ -341,21 +446,20 @@
         hdr.appendChild(cell);
       });
       grid.appendChild(hdr);
- 
+
       var dayGrid = document.createElement('div');
       dayGrid.className = 'grid grid-cols-7 gap-0.5';
- 
+
       for (var i = 0; i < firstDay; i++) {
         dayGrid.appendChild(document.createElement('div'));
       }
- 
+
       for (var day = 1; day <= daysInMonth; day++) {
         var ev = null;
         for (var j = 0; j < events.length; j++) {
           var dd = getDate(events[j]);
           if (dd.getDate() === day && dd.getMonth() === month && dd.getFullYear() === year) {
-            ev = events[j];
-            break;
+            ev = events[j]; break;
           }
         }
         var isToday = new Date(year, month, day).toDateString() === new Date().toDateString();
@@ -365,38 +469,39 @@
           isToday ? 'bg-ink text-paper font-bold' : 'hover:bg-mist cursor-default',
           ev && !isToday ? 'font-semibold' : ''
         ].join(' ');
-        cell.title = ev ? (ev.summary || 'Soirée jeux') : '';
+        cell.title = ev ? (getEventIcon(ev.summary) + ' ' + (ev.summary || 'Soirée jeux')) : '';
         cell.innerHTML = '<span>' + day + '</span>' +
           (ev ? '<span class="absolute bottom-1 w-1 h-1 rounded-full ' + (isToday ? 'bg-soft' : 'bg-accent') + '"></span>' : '');
         dayGrid.appendChild(cell);
       }
       grid.appendChild(dayGrid);
     }
- 
+
     function renderNextCard(events) {
       if (!events.length) return;
       var ev = events[0];
       var d  = getDate(ev);
       document.getElementById('next-card').classList.remove('hidden');
+      document.getElementById('next-icon').textContent  = getEventIcon(ev.summary);
       document.getElementById('next-date').textContent  = d.getDate();
       document.getElementById('next-month').textContent = MONTHS_LONG[d.getMonth()] + ' ' + d.getFullYear();
       document.getElementById('next-title').textContent = ev.summary || 'Soirée jeux';
       document.getElementById('next-where').textContent = ev.location ? '📍 ' + ev.location : '';
       document.getElementById('next-desc').textContent  = ev.description ? ev.description.replace(/<[^>]*>/g, '') : '';
     }
- 
+
     function removeSkeleton() {
       var sk = document.getElementById('skeleton');
       if (sk) sk.remove();
     }
- 
+
     function fetchEvents() {
       var calId = encodeURIComponent(CONFIG.CALENDAR_ID);
-      var url   = 'https://www.googleapis.com/calendar/v3/calendars/' + calId + '/events'
-                + '?key=' + CONFIG.API_KEY
-                + '&timeMin=' + new Date().toISOString()
-                + '&maxResults=' + CONFIG.MAX_RESULTS
-                + '&singleEvents=true&orderBy=startTime';
+      var url = 'https://www.googleapis.com/calendar/v3/calendars/' + calId + '/events'
+              + '?key=' + CONFIG.API_KEY
+              + '&timeMin=' + new Date().toISOString()
+              + '&maxResults=' + CONFIG.MAX_RESULTS
+              + '&singleEvents=true&orderBy=startTime';
       return fetch(url).then(function(res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
@@ -404,22 +509,22 @@
         return data.items || [];
       });
     }
- 
+
     function showDemo(reason) {
       console.warn('Mode démo (' + reason + ')');
       removeSkeleton();
       var banner = document.createElement('div');
       banner.className = 'mb-4 text-xs bg-blue-50 border border-blue-200 text-blue-700 rounded-lg px-4 py-2.5';
       banner.textContent = reason === 'config'
-        ? 'Mode démo — remplacez COLLE_TA_CLE_API_ICI par votre clé Google.'
-        : 'Impossible de charger le calendrier — vérifiez la clé API et les droits de l\'agenda.';
+        ? '⚙️ Mode démo — remplacez COLLE_TA_CLE_API_ICI par votre clé Google.'
+        : '⚠️ Impossible de charger le calendrier — vérifiez la clé API et les droits de l\'agenda.';
       document.getElementById('events-container').before(banner);
       renderList(DEMO_EVENTS);
       renderMonth(DEMO_EVENTS);
       renderNextCard(DEMO_EVENTS);
       document.getElementById('event-count').textContent = DEMO_EVENTS.length + ' soirées (démo)';
     }
- 
+
     function init() {
       if (CONFIG.API_KEY === 'COLLE_TA_CLE_API_ICI') {
         showDemo('config');
@@ -436,7 +541,7 @@
         showDemo('erreur');
       });
     }
- 
+
     init();
   </script>
 </body>
