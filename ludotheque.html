@@ -1,334 +1,628 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ludothèque · Ludo'sphère</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { display:['Syne','sans-serif'], body:['Instrument Sans','sans-serif'] },
-          colors: { ink:'#0d0d0d', paper:'#f9f8f6', mist:'#f0ede8', line:'#e2ddd7', accent:'#2563eb', soft:'#93c5fd' },
-          keyframes: { fadeUp:{'0%':{opacity:'0',transform:'translateY(16px)'},'100%':{opacity:'1',transform:'translateY(0)'}} },
-          animation: { 'fade-up':'fadeUp .45s ease both','fade-up-2':'fadeUp .45s .1s ease both' }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ludothèque · Ludo'sphère</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Instrument+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ["Syne", "sans-serif"],
+              body: ["Instrument Sans", "sans-serif"],
+            },
+            colors: {
+              ink: "#0d0d0d",
+              paper: "#f9f8f6",
+              mist: "#f0ede8",
+              line: "#e2ddd7",
+              accent: "#2563eb",
+              soft: "#93c5fd",
+            },
+            keyframes: {
+              fadeUp: {
+                "0%": { opacity: "0", transform: "translateY(16px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+            },
+            animation: {
+              "fade-up": "fadeUp .45s ease both",
+              "fade-up-2": "fadeUp .45s .1s ease both",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Instrument Sans", sans-serif;
+      }
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f0ede8;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #c7bfb3;
+        border-radius: 4px;
+      }
+      .type-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.65rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 0.15rem 0.5rem;
+        border-radius: 99px;
+        border: 1px solid #e2ddd7;
+        color: #888;
+      }
+      .filter-input {
+        width: 100%;
+        padding: 0.5rem 0.75rem 0.5rem 2.1rem;
+        border: 1px solid #e2ddd7;
+        border-radius: 99px;
+        font-size: 0.82rem;
+        background: #f9f8f6;
+        outline: none;
+        transition: border-color 0.15s;
+      }
+      .filter-input:focus {
+        border-color: #2563eb;
+      }
+      .filter-select {
+        padding: 0.5rem 2rem 0.5rem 0.85rem;
+        border: 1px solid #e2ddd7;
+        border-radius: 99px;
+        font-size: 0.82rem;
+        background: #f9f8f6
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23aaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")
+          no-repeat right 0.7rem center;
+        -webkit-appearance: none;
+        appearance: none;
+        cursor: pointer;
+        outline: none;
+        transition: border-color 0.15s;
+        color: #0d0d0d;
+      }
+      .filter-select:focus {
+        border-color: #2563eb;
+      }
+      .game-card {
+        background: #fff;
+        border: 1px solid #e2ddd7;
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s,
+          border-color 0.15s;
+      }
+      .game-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+        border-color: #c7bfb3;
+      }
+      .card-thumb {
+        height: 88px;
+        background: #f0ede8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.4rem;
+        position: relative;
+      }
+      .note-pill {
+        position: absolute;
+        top: 7px;
+        right: 7px;
+        font-size: 0.63rem;
+        font-weight: 600;
+        padding: 2px 7px;
+        border-radius: 99px;
+        letter-spacing: 0.02em;
+      }
+      .note-high {
+        background: #d1fae5;
+        color: #065f46;
+      }
+      .note-med {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .note-low {
+        background: #f1efea;
+        color: #888;
+      }
+      .cat-plateau {
+        background: #eff6ff;
+        color: #1d4ed8;
+        border-color: #bfdbfe;
+      }
+      .cat-cartes {
+        background: #faf5ff;
+        color: #7e22ce;
+        border-color: #e9d5ff;
+      }
+      .cat-ambiance {
+        background: #fff7ed;
+        color: #c2410c;
+        border-color: #fed7aa;
+      }
+      .cat-tuiles {
+        background: #f0fdf4;
+        color: #15803d;
+        border-color: #bbf7d0;
+      }
+      .cat-des {
+        background: #fff1f2;
+        color: #be123c;
+        border-color: #fecdd3;
+      }
+      .cat-pions {
+        background: #f0f9ff;
+        color: #0369a1;
+        border-color: #bae6fd;
+      }
+      .cat-enquete {
+        background: #fdf4ff;
+        color: #7e22ce;
+        border-color: #f5d0fe;
+      }
+      .cat-adresse {
+        background: #fefce8;
+        color: #a16207;
+        border-color: #fde68a;
+      }
+      .cat-escape {
+        background: #fff0f5;
+        color: #9d174d;
+        border-color: #fbcfe8;
+      }
+      .cat-role {
+        background: #ecfdf5;
+        color: #065f46;
+        border-color: #a7f3d0;
+      }
+      .cat-other {
+        background: #f9f8f6;
+        color: #6b7280;
+        border-color: #e2ddd7;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
         }
       }
-    }
-  </script>
-  <style>
-    body{font-family:'Instrument Sans',sans-serif}
-    ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#f0ede8}::-webkit-scrollbar-thumb{background:#c7bfb3;border-radius:4px}
-    .type-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:.15rem .5rem;border-radius:99px;border:1px solid #e2ddd7;color:#888}
-    .filter-input{width:100%;padding:.5rem .75rem .5rem 2.1rem;border:1px solid #e2ddd7;border-radius:99px;font-size:.82rem;background:#f9f8f6;outline:none;transition:border-color .15s}
-    .filter-input:focus{border-color:#2563eb}
-    .filter-select{padding:.5rem 2rem .5rem .85rem;border:1px solid #e2ddd7;border-radius:99px;font-size:.82rem;background:#f9f8f6 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23aaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right .7rem center;-webkit-appearance:none;appearance:none;cursor:pointer;outline:none;transition:border-color .15s;color:#0d0d0d}
-    .filter-select:focus{border-color:#2563eb}
-    .game-card{background:#fff;border:1px solid #e2ddd7;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s,border-color .15s}
-    .game-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.07);border-color:#c7bfb3}
-    .card-thumb{height:88px;background:#f0ede8;display:flex;align-items:center;justify-content:center;font-size:2.4rem;position:relative}
-    .note-pill{position:absolute;top:7px;right:7px;font-size:.63rem;font-weight:600;padding:2px 7px;border-radius:99px;letter-spacing:.02em}
-    .note-high{background:#d1fae5;color:#065f46}
-    .note-med{background:#fef3c7;color:#92400e}
-    .note-low{background:#f1efea;color:#888}
-    .cat-plateau{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
-    .cat-cartes{background:#faf5ff;color:#7e22ce;border-color:#e9d5ff}
-    .cat-ambiance{background:#fff7ed;color:#c2410c;border-color:#fed7aa}
-    .cat-tuiles{background:#f0fdf4;color:#15803d;border-color:#bbf7d0}
-    .cat-des{background:#fff1f2;color:#be123c;border-color:#fecdd3}
-    .cat-pions{background:#f0f9ff;color:#0369a1;border-color:#bae6fd}
-    .cat-enquete{background:#fdf4ff;color:#7e22ce;border-color:#f5d0fe}
-    .cat-adresse{background:#fefce8;color:#a16207;border-color:#fde68a}
-    .cat-escape{background:#fff0f5;color:#9d174d;border-color:#fbcfe8}
-    .cat-role{background:#ecfdf5;color:#065f46;border-color:#a7f3d0}
-    .cat-other{background:#f9f8f6;color:#6b7280;border-color:#e2ddd7}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .spinner{width:32px;height:32px;border:3px solid #e2ddd7;border-top-color:#2563eb;border-radius:50%;animation:spin .7s linear infinite}
-  </style>
-</head>
-<body class="bg-paper text-ink min-h-screen">
-
-  <!-- HEADER -->
-  <header class="border-b border-line bg-paper/90 sticky top-0 z-10 backdrop-blur-sm">
-    <div class="max-w-5xl mx-auto px-5 py-4 flex items-center justify-between">
-      <a href="./index.html">
-        <img src="./images/logo_ludosphere.png" alt="Ludo'sphère" class="h-14 w-auto" />
-      </a>
-      <a href="/cdn-cgi/l/email-protection#f09c85949f838098958295de9183839fb0979d91999cde939f9d" class="text-sm font-medium border border-line rounded-full px-4 py-1.5 hover:bg-ink hover:text-paper hover:border-ink transition-all duration-200">Nous écrire</a>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <section class="max-w-5xl mx-auto px-5 pt-10 pb-6 animate-fade-up">
-    <a href="./index.html" class="inline-block text-xs text-zinc-400 hover:text-accent transition-colors mb-4">← Accueil</a>
-    <p class="text-xs font-medium tracking-widest uppercase text-accent mb-2">Association Ludo'Sphère · Vallet</p>
-    <h1 class="font-display font-extrabold text-3xl sm:text-4xl leading-tight tracking-tight mb-3">Notre ludothèque</h1>
-    <p class="text-base text-zinc-500 max-w-lg leading-relaxed mb-5">Consultez l'ensemble de nos jeux disponibles lors de nos soirées. Filtrez par catégorie, nombre de joueurs, âge ou durée pour trouver votre prochaine partie.</p>
-    <div class="flex flex-wrap gap-2">
-      <span class="type-badge cat-plateau">♟️ Plateau</span>
-      <span class="type-badge cat-cartes">🃏 Cartes</span>
-      <span class="type-badge cat-ambiance">🎉 Ambiance</span>
-      <span class="type-badge cat-escape">🔐 Escape</span>
-      <span class="type-badge cat-role">🐉 Rôle</span>
-      <span class="type-badge cat-des">🎲 Dés</span>
-    </div>
-  </section>
-
-  <!-- FILTERS (masqués pendant le chargement) -->
-  <div id="filters-bar" class="hidden sticky top-[73px] z-10 bg-paper/95 backdrop-blur-sm border-b border-line">
-    <div class="max-w-5xl mx-auto px-5 py-3 flex flex-wrap gap-2 items-center">
-      <div class="relative flex-1 min-w-44">
-        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 stroke-zinc-400 fill-none" viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" id="search" class="filter-input" placeholder="Rechercher un jeu, un thème…" oninput="render()">
+      .spinner {
+        width: 32px;
+        height: 32px;
+        border: 3px solid #e2ddd7;
+        border-top-color: #2563eb;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+    </style>
+  </head>
+  <body class="bg-paper text-ink min-h-screen">
+    <!-- HEADER -->
+    <header
+      class="border-b border-line bg-paper/90 sticky top-0 z-10 backdrop-blur-sm"
+    >
+      <div
+        class="max-w-5xl mx-auto px-5 py-4 flex items-center justify-between"
+      >
+        <a href="./index.html">
+          <img
+            src="./images/logo_ludosphere.png"
+            alt="Ludo'sphère"
+            class="h-14 w-auto"
+          />
+        </a>
+        <a
+          href="mailto:ludosphere.asso@gmail.com"
+          class="text-sm font-medium border border-line rounded-full px-4 py-1.5 hover:bg-ink hover:text-paper hover:border-ink transition-all duration-200"
+          >Nous écrire</a
+        >
       </div>
-      <select id="filCat" class="filter-select" onchange="render()"><option value="">Toutes catégories</option></select>
-      <select id="filJoueurs" class="filter-select" onchange="render()">
-        <option value="">Joueurs</option>
-        <option value="solo">Solo</option>
-        <option value="duo">Duo</option>
-        <option value="4">4+ joueurs</option>
-        <option value="6">6+ joueurs</option>
-      </select>
-      <select id="filAge" class="filter-select" onchange="render()">
-        <option value="">Âge</option>
-        <option value="4">Dès 4 ans</option>
-        <option value="6">Dès 6 ans</option>
-        <option value="8">Dès 8 ans</option>
-        <option value="10">Dès 10 ans</option>
-        <option value="14">Dès 14 ans</option>
-      </select>
-      <select id="filDuree" class="filter-select" onchange="render()">
-        <option value="">Durée</option>
-        <option value="15">≤ 15 min</option>
-        <option value="30">≤ 30 min</option>
-        <option value="60">≤ 1 heure</option>
-      </select>
-      <select id="filNote" class="filter-select" onchange="render()">
-        <option value="">Note</option>
-        <option value="8">Très bien ≥ 8</option>
-        <option value="7">Bien ≥ 7</option>
-      </select>
-      <button onclick="resetFilters()" class="text-xs text-zinc-400 hover:text-accent transition-colors px-1 shrink-0">Effacer</button>
+    </header>
+
+    <!-- HERO -->
+    <section class="max-w-5xl mx-auto px-5 pt-10 pb-6 animate-fade-up">
+      <a
+        href="./index.html"
+        class="inline-block text-xs text-zinc-400 hover:text-accent transition-colors mb-4"
+        >← Accueil</a
+      >
+      <p class="text-xs font-medium tracking-widest uppercase text-accent mb-2">
+        Association Ludo'Sphère · Vallet
+      </p>
+      <h1
+        class="font-display font-extrabold text-3xl sm:text-4xl leading-tight tracking-tight mb-3"
+      >
+        Notre ludothèque
+      </h1>
+      <p class="text-base text-zinc-500 max-w-lg leading-relaxed mb-5">
+        Consultez l'ensemble de nos jeux disponibles lors de nos soirées.
+        Filtrez par catégorie, nombre de joueurs, âge ou durée pour trouver
+        votre prochaine partie.
+      </p>
+      <div class="flex flex-wrap gap-2">
+        <span class="type-badge cat-plateau">♟️ Plateau</span>
+        <span class="type-badge cat-cartes">🃏 Cartes</span>
+        <span class="type-badge cat-ambiance">🎉 Ambiance</span>
+        <span class="type-badge cat-escape">🔐 Escape</span>
+        <span class="type-badge cat-role">🐉 Rôle</span>
+        <span class="type-badge cat-des">🎲 Dés</span>
+      </div>
+    </section>
+
+    <!-- FILTERS (masqués pendant le chargement) -->
+    <div
+      id="filters-bar"
+      class="hidden sticky top-[73px] z-10 bg-paper/95 backdrop-blur-sm border-b border-line"
+    >
+      <div
+        class="max-w-5xl mx-auto px-5 py-3 flex flex-wrap gap-2 items-center"
+      >
+        <div class="relative flex-1 min-w-44">
+          <svg
+            class="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 stroke-zinc-400 fill-none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+          </svg>
+          <input
+            type="text"
+            id="search"
+            class="filter-input"
+            placeholder="Rechercher un jeu, un thème…"
+            oninput="render()"
+          />
+        </div>
+        <select id="filCat" class="filter-select" onchange="render()">
+          <option value="">Toutes catégories</option>
+        </select>
+        <select id="filJoueurs" class="filter-select" onchange="render()">
+          <option value="">Joueurs</option>
+          <option value="solo">Solo</option>
+          <option value="duo">Duo</option>
+          <option value="4">4+ joueurs</option>
+          <option value="6">6+ joueurs</option>
+        </select>
+        <select id="filAge" class="filter-select" onchange="render()">
+          <option value="">Âge</option>
+          <option value="4">Dès 4 ans</option>
+          <option value="6">Dès 6 ans</option>
+          <option value="8">Dès 8 ans</option>
+          <option value="10">Dès 10 ans</option>
+          <option value="14">Dès 14 ans</option>
+        </select>
+        <select id="filDuree" class="filter-select" onchange="render()">
+          <option value="">Durée</option>
+          <option value="15">≤ 15 min</option>
+          <option value="30">≤ 30 min</option>
+          <option value="60">≤ 1 heure</option>
+        </select>
+        <select id="filNote" class="filter-select" onchange="render()">
+          <option value="">Note</option>
+          <option value="8">Très bien ≥ 8</option>
+          <option value="7">Bien ≥ 7</option>
+        </select>
+        <button
+          onclick="resetFilters()"
+          class="text-xs text-zinc-400 hover:text-accent transition-colors px-1 shrink-0"
+        >
+          Effacer
+        </button>
+      </div>
+      <div
+        class="max-w-5xl mx-auto px-5 pb-2.5 flex items-center justify-between"
+      >
+        <p class="text-xs text-zinc-400" id="stats-text"></p>
+        <p class="text-xs text-zinc-300" id="csv-date"></p>
+      </div>
     </div>
-    <div class="max-w-5xl mx-auto px-5 pb-2.5 flex items-center justify-between">
-      <p class="text-xs text-zinc-400" id="stats-text"></p>
-      <p class="text-xs text-zinc-300" id="csv-date"></p>
-    </div>
-  </div>
 
-  <!-- CONTENU PRINCIPAL -->
-  <main class="max-w-5xl mx-auto px-5 py-8 animate-fade-up-2">
+    <!-- CONTENU PRINCIPAL -->
+    <main class="max-w-5xl mx-auto px-5 py-8 animate-fade-up-2">
+      <!-- État chargement -->
+      <div
+        id="state-loading"
+        class="flex flex-col items-center justify-center py-24 gap-4"
+      >
+        <div class="spinner"></div>
+        <p class="text-sm text-zinc-400">Chargement de la ludothèque…</p>
+      </div>
 
-    <!-- État chargement -->
-    <div id="state-loading" class="flex flex-col items-center justify-center py-24 gap-4">
-      <div class="spinner"></div>
-      <p class="text-sm text-zinc-400">Chargement de la ludothèque…</p>
-    </div>
+      <!-- État erreur -->
+      <div id="state-error" class="hidden text-center py-20">
+        <p class="text-3xl mb-3">⚠️</p>
+        <p class="font-medium text-base mb-1">
+          Impossible de charger
+          <code class="bg-mist px-1 rounded text-sm">jeux.csv</code>
+        </p>
+        <p class="text-sm text-zinc-400 max-w-sm mx-auto">
+          Vérifiez que le fichier <strong>jeux.csv</strong> est bien placé dans
+          le même dossier que cette page sur votre serveur.
+        </p>
+        <p class="text-xs text-zinc-300 mt-4" id="error-detail"></p>
+      </div>
 
-    <!-- État erreur -->
-    <div id="state-error" class="hidden text-center py-20">
-      <p class="text-3xl mb-3">⚠️</p>
-      <p class="font-medium text-base mb-1">Impossible de charger <code class="bg-mist px-1 rounded text-sm">jeux.csv</code></p>
-      <p class="text-sm text-zinc-400 max-w-sm mx-auto">Vérifiez que le fichier <strong>jeux.csv</strong> est bien placé dans le même dossier que cette page sur votre serveur.</p>
-      <p class="text-xs text-zinc-300 mt-4" id="error-detail"></p>
-    </div>
+      <!-- Grille des jeux -->
+      <div id="state-grid" class="hidden">
+        <div
+          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3"
+          id="grid"
+        ></div>
+      </div>
+    </main>
 
-    <!-- Grille des jeux -->
-    <div id="state-grid" class="hidden">
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3" id="grid"></div>
-    </div>
+    <!-- FOOTER -->
+    <footer class="border-t border-line">
+      <div
+        class="max-w-5xl mx-auto px-5 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-zinc-400"
+      >
+        <span>🎲 © 2026 Ludo'sphère — Vallet</span>
+        <a href="./index.html" class="hover:text-accent transition-colors"
+          >← Retour à l'accueil</a
+        >
+      </div>
+    </footer>
 
-  </main>
+    <script>
+      // ─── Configuration ────────────────────────────────────────────────────────────
+      // Nom du fichier CSV à placer dans le même dossier que cette page
+      const CSV_FILE = "./jeux.csv";
 
-  <!-- FOOTER -->
-  <footer class="border-t border-line">
-    <div class="max-w-5xl mx-auto px-5 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-zinc-400">
-      <span>🎲 © 2026 Ludo'sphère — Vallet</span>
-      <a href="./index.html" class="hover:text-accent transition-colors">← Retour à l'accueil</a>
-    </div>
-  </footer>
+      // ─── Données ──────────────────────────────────────────────────────────────────
+      let GAMES = [];
 
-  <script>
-  // ─── Configuration ────────────────────────────────────────────────────────────
-  // Nom du fichier CSV à placer dans le même dossier que cette page
-  const CSV_FILE = './jeux.csv';
+      // ─── Correspondances catégories ───────────────────────────────────────────────
+      const EMOJI = {
+        "Jeu de plateau": "♟️",
+        "Jeu de Cartes": "🃏",
+        "Jeu d'Ambiance": "🎉",
+        "Jeu de tuiles": "🔲",
+        "Jeu de dés": "🎲",
+        "Jeu de pions": "⚫",
+        "Jeu D'Enquête": "🔍",
+        "Jeu D'Adresse": "🎯",
+        "Escape Game": "🔐",
+        "Jeu De Rôle": "🐉",
+        "Jeu d'Observation": "👁️",
+        "Jeu de figurines": "🗿",
+        "Casse-tête": "🧩",
+        "4X": "🌍",
+        "Jeu De Connaissances": "📚",
+        "Jeu de lettres": "🔤",
+        "Jeu à Griffonner": "✏️",
+        Autre: "🎮",
+      };
+      const CAT_CLASS = {
+        "Jeu de plateau": "cat-plateau",
+        "Jeu de Cartes": "cat-cartes",
+        "Jeu d'Ambiance": "cat-ambiance",
+        "Jeu de tuiles": "cat-tuiles",
+        "Jeu de dés": "cat-des",
+        "Jeu de pions": "cat-pions",
+        "Jeu D'Enquête": "cat-enquete",
+        "Jeu D'Adresse": "cat-adresse",
+        "Escape Game": "cat-escape",
+        "Jeu De Rôle": "cat-role",
+        "Jeu d'Observation": "cat-ambiance",
+        "Jeu de figurines": "cat-plateau",
+        "Casse-tête": "cat-adresse",
+        "4X": "cat-enquete",
+        "Jeu De Connaissances": "cat-role",
+        "Jeu de lettres": "cat-role",
+        "Jeu à Griffonner": "cat-ambiance",
+        Autre: "cat-other",
+      };
 
-  // ─── Données ──────────────────────────────────────────────────────────────────
-  let GAMES = [];
+      // ─── Parsing CSV ──────────────────────────────────────────────────────────────
+      function parseCSV(text) {
+        const lines = text.trim().split("\n");
+        if (lines.length < 2) return [];
+        // Parse header
+        const headers = splitCSVLine(lines[0]);
+        const games = [];
+        for (let i = 1; i < lines.length; i++) {
+          if (!lines[i].trim()) continue;
+          const vals = splitCSVLine(lines[i]);
+          const obj = {};
+          headers.forEach((h, idx) => {
+            obj[h.trim()] = (vals[idx] || "").trim();
+          });
+          games.push({
+            titre: obj.titre || "",
+            joueurs: obj.joueurs || "",
+            duree: obj.duree || "",
+            age: parseInt(obj.age) || 0,
+            cat: obj.cat || "Autre",
+            theme: obj.theme || "",
+            note: parseFloat(obj.note) || 0,
+          });
+        }
+        return games;
+      }
 
-  // ─── Correspondances catégories ───────────────────────────────────────────────
-  const EMOJI = {
-    "Jeu de plateau":"♟️","Jeu de Cartes":"🃏","Jeu d'Ambiance":"🎉",
-    "Jeu de tuiles":"🔲","Jeu de dés":"🎲","Jeu de pions":"⚫",
-    "Jeu D'Enquête":"🔍","Jeu D'Adresse":"🎯","Escape Game":"🔐",
-    "Jeu De Rôle":"🐉","Jeu d'Observation":"👁️","Jeu de figurines":"🗿",
-    "Casse-tête":"🧩","4X":"🌍","Jeu De Connaissances":"📚",
-    "Jeu de lettres":"🔤","Jeu à Griffonner":"✏️","Autre":"🎮"
-  };
-  const CAT_CLASS = {
-    "Jeu de plateau":"cat-plateau","Jeu de Cartes":"cat-cartes",
-    "Jeu d'Ambiance":"cat-ambiance","Jeu de tuiles":"cat-tuiles",
-    "Jeu de dés":"cat-des","Jeu de pions":"cat-pions",
-    "Jeu D'Enquête":"cat-enquete","Jeu D'Adresse":"cat-adresse",
-    "Escape Game":"cat-escape","Jeu De Rôle":"cat-role",
-    "Jeu d'Observation":"cat-ambiance","Jeu de figurines":"cat-plateau",
-    "Casse-tête":"cat-adresse","4X":"cat-enquete",
-    "Jeu De Connaissances":"cat-role","Jeu de lettres":"cat-role",
-    "Jeu à Griffonner":"cat-ambiance","Autre":"cat-other"
-  };
-
-  // ─── Parsing CSV ──────────────────────────────────────────────────────────────
-  function parseCSV(text) {
-    const lines = text.trim().split('\n');
-    if (lines.length < 2) return [];
-    // Parse header
-    const headers = splitCSVLine(lines[0]);
-    const games = [];
-    for (let i = 1; i < lines.length; i++) {
-      if (!lines[i].trim()) continue;
-      const vals = splitCSVLine(lines[i]);
-      const obj = {};
-      headers.forEach((h, idx) => { obj[h.trim()] = (vals[idx] || '').trim(); });
-      games.push({
-        titre:   obj.titre   || '',
-        joueurs: obj.joueurs || '',
-        duree:   obj.duree   || '',
-        age:     parseInt(obj.age) || 0,
-        cat:     obj.cat     || 'Autre',
-        theme:   obj.theme   || '',
-        note:    parseFloat(obj.note) || 0
-      });
-    }
-    return games;
-  }
-
-  // Parse une ligne CSV en tenant compte des guillemets
-  function splitCSVLine(line) {
-    const result = [];
-    let cur = '';
-    let inQuotes = false;
-    for (let i = 0; i < line.length; i++) {
-      const ch = line[i];
-      if (ch === '"') {
-        inQuotes = !inQuotes;
-      } else if (ch === ',' && !inQuotes) {
+      // Parse une ligne CSV en tenant compte des guillemets
+      function splitCSVLine(line) {
+        const result = [];
+        let cur = "";
+        let inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+          const ch = line[i];
+          if (ch === '"') {
+            inQuotes = !inQuotes;
+          } else if (ch === "," && !inQuotes) {
+            result.push(cur);
+            cur = "";
+          } else {
+            cur += ch;
+          }
+        }
         result.push(cur);
-        cur = '';
-      } else {
-        cur += ch;
+        return result;
       }
-    }
-    result.push(cur);
-    return result;
-  }
 
-  // ─── Chargement du CSV ────────────────────────────────────────────────────────
-  function setState(s) {
-    ['loading','error','grid'].forEach(id => {
-      document.getElementById('state-'+id).classList.toggle('hidden', id !== s);
-    });
-    if (s === 'grid') document.getElementById('filters-bar').classList.remove('hidden');
-  }
-
-  async function loadCSV() {
-    try {
-      // Cache-busting léger pour éviter que le navigateur serve une version expirée
-      const res = await fetch(CSV_FILE + '?v=' + Date.now());
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const text = await res.text();
-      GAMES = parseCSV(text);
-      if (!GAMES.length) throw new Error('Aucun jeu trouvé dans le fichier.');
-
-      // Remplir le select catégories
-      const cats = [...new Set(GAMES.map(g => g.cat))].sort();
-      const sel = document.getElementById('filCat');
-      cats.forEach(c => {
-        const o = document.createElement('option');
-        o.value = c;
-        o.textContent = (EMOJI[c] || '') + ' ' + c;
-        sel.appendChild(o);
-      });
-
-      setState('grid');
-      render();
-    } catch (err) {
-      setState('error');
-      document.getElementById('error-detail').textContent = err.message;
-    }
-  }
-
-  // ─── Helpers filtres ──────────────────────────────────────────────────────────
-  function pMin(s)  { if(!s) return 999; const m = s.match(/(\d+)/); return m ? parseInt(m[1]) : 999; }
-  function pMax(s)  { if(!s) return 0; if(s.toLowerCase()==='duo') return 2; const p = s.match(/\d+/g); return p ? parseInt(p[p.length-1]) : 0; }
-  function pMinJ(s) { if(!s) return 99; if(s.toLowerCase()==='duo') return 2; const m = s.match(/(\d+)/); return m ? parseInt(m[1]) : 99; }
-
-  // ─── Rendu grille ─────────────────────────────────────────────────────────────
-  function render() {
-    const q    = document.getElementById('search').value.toLowerCase().trim();
-    const cat  = document.getElementById('filCat').value;
-    const jou  = document.getElementById('filJoueurs').value;
-    const age  = document.getElementById('filAge').value;
-    const dur  = document.getElementById('filDuree').value;
-    const note = document.getElementById('filNote').value;
-
-    const f = GAMES.filter(g => {
-      if (q && !g.titre.toLowerCase().includes(q) && !g.theme.toLowerCase().includes(q) && !g.cat.toLowerCase().includes(q)) return false;
-      if (cat  && g.cat !== cat) return false;
-      if (age  && g.age > parseInt(age)) return false;
-      if (dur  && pMin(g.duree) > parseInt(dur)) return false;
-      if (note && g.note < parseFloat(note)) return false;
-      if (jou) {
-        if (jou === 'solo' && pMinJ(g.joueurs) > 1) return false;
-        if (jou === 'duo') { const j = g.joueurs.toLowerCase(); if (j !== 'duo' && pMinJ(g.joueurs) > 2) return false; }
-        if (jou === '4'   && pMax(g.joueurs) < 4) return false;
-        if (jou === '6'   && pMax(g.joueurs) < 6) return false;
+      // ─── Chargement du CSV ────────────────────────────────────────────────────────
+      function setState(s) {
+        ["loading", "error", "grid"].forEach((id) => {
+          document
+            .getElementById("state-" + id)
+            .classList.toggle("hidden", id !== s);
+        });
+        if (s === "grid")
+          document.getElementById("filters-bar").classList.remove("hidden");
       }
-      return true;
-    });
 
-    document.getElementById('stats-text').textContent =
-      f.length + ' jeu' + (f.length > 1 ? 'x' : '') +
-      ' affiché' + (f.length > 1 ? 's' : '') + ' sur ' + GAMES.length;
+      async function loadCSV() {
+        try {
+          // Cache-busting léger pour éviter que le navigateur serve une version expirée
+          const res = await fetch(CSV_FILE + "?v=" + Date.now());
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          const text = await res.text();
+          GAMES = parseCSV(text);
+          if (!GAMES.length)
+            throw new Error("Aucun jeu trouvé dans le fichier.");
 
-    const grid = document.getElementById('grid');
-    if (!f.length) {
-      grid.innerHTML = '<div class="col-span-full text-center py-16 text-zinc-400"><p class="text-3xl mb-2">🔍</p><p class="text-sm">Aucun jeu ne correspond à votre recherche.</p></div>';
-      return;
-    }
+          // Remplir le select catégories
+          const cats = [...new Set(GAMES.map((g) => g.cat))].sort();
+          const sel = document.getElementById("filCat");
+          cats.forEach((c) => {
+            const o = document.createElement("option");
+            o.value = c;
+            o.textContent = (EMOJI[c] || "") + " " + c;
+            sel.appendChild(o);
+          });
 
-    grid.innerHTML = f.map(g => {
-      const em = EMOJI[g.cat] || '🎮';
-      const cl = CAT_CLASS[g.cat] || 'cat-other';
-      const nv = g.note > 0 ? g.note.toFixed(1) : null;
-      const nc = nv >= 8 ? 'note-high' : nv >= 7 ? 'note-med' : 'note-low';
-      const th = g.theme ? g.theme.split(',').slice(0, 2).join(', ') : '';
-      return `<div class="game-card">
-        <div class="card-thumb">${em}${nv ? `<span class="note-pill ${nc}">★ ${nv}</span>` : ''}</div>
+          setState("grid");
+          render();
+        } catch (err) {
+          setState("error");
+          document.getElementById("error-detail").textContent = err.message;
+        }
+      }
+
+      // ─── Helpers filtres ──────────────────────────────────────────────────────────
+      function pMin(s) {
+        if (!s) return 999;
+        const m = s.match(/(\d+)/);
+        return m ? parseInt(m[1]) : 999;
+      }
+      function pMax(s) {
+        if (!s) return 0;
+        if (s.toLowerCase() === "duo") return 2;
+        const p = s.match(/\d+/g);
+        return p ? parseInt(p[p.length - 1]) : 0;
+      }
+      function pMinJ(s) {
+        if (!s) return 99;
+        if (s.toLowerCase() === "duo") return 2;
+        const m = s.match(/(\d+)/);
+        return m ? parseInt(m[1]) : 99;
+      }
+
+      // ─── Rendu grille ─────────────────────────────────────────────────────────────
+      function render() {
+        const q = document.getElementById("search").value.toLowerCase().trim();
+        const cat = document.getElementById("filCat").value;
+        const jou = document.getElementById("filJoueurs").value;
+        const age = document.getElementById("filAge").value;
+        const dur = document.getElementById("filDuree").value;
+        const note = document.getElementById("filNote").value;
+
+        const f = GAMES.filter((g) => {
+          if (
+            q &&
+            !g.titre.toLowerCase().includes(q) &&
+            !g.theme.toLowerCase().includes(q) &&
+            !g.cat.toLowerCase().includes(q)
+          )
+            return false;
+          if (cat && g.cat !== cat) return false;
+          if (age && g.age > parseInt(age)) return false;
+          if (dur && pMin(g.duree) > parseInt(dur)) return false;
+          if (note && g.note < parseFloat(note)) return false;
+          if (jou) {
+            if (jou === "solo" && pMinJ(g.joueurs) > 1) return false;
+            if (jou === "duo") {
+              const j = g.joueurs.toLowerCase();
+              if (j !== "duo" && pMinJ(g.joueurs) > 2) return false;
+            }
+            if (jou === "4" && pMax(g.joueurs) < 4) return false;
+            if (jou === "6" && pMax(g.joueurs) < 6) return false;
+          }
+          return true;
+        });
+
+        document.getElementById("stats-text").textContent =
+          f.length +
+          " jeu" +
+          (f.length > 1 ? "x" : "") +
+          " affiché" +
+          (f.length > 1 ? "s" : "") +
+          " sur " +
+          GAMES.length;
+
+        const grid = document.getElementById("grid");
+        if (!f.length) {
+          grid.innerHTML =
+            '<div class="col-span-full text-center py-16 text-zinc-400"><p class="text-3xl mb-2">🔍</p><p class="text-sm">Aucun jeu ne correspond à votre recherche.</p></div>';
+          return;
+        }
+
+        grid.innerHTML = f
+          .map((g) => {
+            const em = EMOJI[g.cat] || "🎮";
+            const cl = CAT_CLASS[g.cat] || "cat-other";
+            const nv = g.note > 0 ? g.note.toFixed(1) : null;
+            const nc =
+              nv >= 8 ? "note-high" : nv >= 7 ? "note-med" : "note-low";
+            const th = g.theme ? g.theme.split(",").slice(0, 2).join(", ") : "";
+            return `<div class="game-card">
+        <div class="card-thumb">${em}${nv ? `<span class="note-pill ${nc}">★ ${nv}</span>` : ""}</div>
         <div class="p-3 flex flex-col gap-1.5 flex-1">
           <p class="font-medium text-sm leading-snug" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${g.titre}</p>
           <span class="type-badge ${cl}" style="width:fit-content">${g.cat}</span>
           <div class="mt-auto flex flex-col gap-0.5 pt-1">
             <p class="text-xs text-zinc-400">👥 ${g.joueurs}</p>
             <p class="text-xs text-zinc-400">⏱ ${g.duree} min</p>
-            ${g.age ? `<p class="text-xs text-zinc-400">🎯 Dès ${g.age} ans</p>` : ''}
-            ${th ? `<p class="text-xs text-zinc-300 mt-0.5 leading-tight" style="display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden">${th}</p>` : ''}
+            ${g.age ? `<p class="text-xs text-zinc-400">🎯 Dès ${g.age} ans</p>` : ""}
+            ${th ? `<p class="text-xs text-zinc-300 mt-0.5 leading-tight" style="display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden">${th}</p>` : ""}
           </div>
         </div>
       </div>`;
-    }).join('');
-  }
+          })
+          .join("");
+      }
 
-  function resetFilters() {
-    document.getElementById('search').value = '';
-    ['filCat','filJoueurs','filAge','filDuree','filNote'].forEach(id => document.getElementById(id).value = '');
-    render();
-  }
+      function resetFilters() {
+        document.getElementById("search").value = "";
+        ["filCat", "filJoueurs", "filAge", "filDuree", "filNote"].forEach(
+          (id) => (document.getElementById(id).value = ""),
+        );
+        render();
+      }
 
-  // ─── Démarrage ────────────────────────────────────────────────────────────────
-  loadCSV();
-  </script>
-</body>
+      // ─── Démarrage ────────────────────────────────────────────────────────────────
+      loadCSV();
+    </script>
+  </body>
 </html>
