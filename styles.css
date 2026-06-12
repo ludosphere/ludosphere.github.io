@@ -12,6 +12,7 @@ body {
   background-color: #f9f8f6;
   color: #0d0d0d;
   min-height: 100vh;
+  font-variant-numeric: tabular-nums;
 }
 
 ::-webkit-scrollbar {
@@ -31,6 +32,24 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: "Syne", sans-serif;
   font-weight: 700;
+}
+
+/* Amélioration lisibilité des chiffres */
+#month-title,
+#next-date,
+#calendar-grid,
+.today-pill,
+.event-card,
+#partnerships-list {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: 500;
+}
+
+/* Chiffres en gras dans les éléments critiques */
+#next-date,
+.today-pill {
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 /* Header */
