@@ -269,17 +269,7 @@
 
             // Filtrer les événements avec la catégorie "Événements"
             const partnerships = allEvents.filter((event) => {
-              const categories = event.categories || [];
-              console.log(
-                "Événement:",
-                event.summary,
-                "Catégories:",
-                categories,
-              ); // DEBUG
-              return (
-                categories.includes("Événements") ||
-                categories.includes("evenements")
-              );
+              return event.summary && event.summary.startsWith("[EVENT]");
             });
 
             console.log("Partenariats trouvés:", partnerships); // DEBUG
