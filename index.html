@@ -802,12 +802,19 @@
       function renderList(events) {
         var c = document.getElementById("events-container");
         c.innerHTML = "";
-        if (!events.length) {
+
+        // Exclure les événements [EVENT]
+        var filteredEvents = events.filter(function (e) {
+          return !e.summary || !e.summary.includes("[EVENT]");
+        });
+
+        if (!filteredEvents.length) {
           c.innerHTML =
             '<p class="text-sm text-zinc-400 py-10 text-center">Aucune soiree programmee.</p>';
           return;
         }
-        for (var i = 0; i < events.length; i++) {
+
+        for (var i = 0; i < filteredEvents.length; i++) {
           var ev = events[i];
           var d = getDate(ev);
           var isToday = d.toDateString() === new Date().toDateString();
@@ -848,11 +855,7 @@
           c.appendChild(el);
         }
       }
-      function changeMonth(dir) {
-        monthOffset += dir;
-        renderMonth(allEvents, dir > 0 ? "slide-right" : "slide-left");
-      }
-      function renderMonth(events, animClass) {
+      -function renderMonth(events, animClass) {
         var d = new Date(
           new Date().getFullYear(),
           new Date().getMonth() + monthOffset,
@@ -958,10 +961,16 @@
           ml.innerHTML =
             '<p class="text-xs text-zinc-400 text-center py-4">Aucune soiree ce mois.</p>';
         }
-      }
+      };
       function renderNextCard(events) {
-        if (!events.length) return;
-        var ev = events[0];
+        // Exclure les événements [EVENT]
+        var filteredEvents = events.filter(function (e) {
+          return !e.summary || !e.summary.includes("[EVENT]");
+        });
+
+        if (!filteredEvents.length) return;
+
+        var ev = filteredEvents[0]; // ← Prendre le premier NON-[EVENT]
         var d = getDate(ev);
         document.getElementById("next-card").classList.remove("hidden");
         document.getElementById("next-icon").textContent = getEventIcon(
