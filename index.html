@@ -245,39 +245,17 @@
         }
 
         async function fetchPartnershipEvents() {
-          try {
-            const url =
-              "https://www.googleapis.com/calendar/v3/calendars/" +
-              encodeURIComponent(CONFIG.CALENDAR_ID) +
-              "/events" +
-              "?key=" +
-              CONFIG.API_KEY +
-              "&timeMin=" +
-              new Date().toISOString() +
-              "&maxResults=50" +
-              "&singleEvents=true" +
-              "&orderBy=startTime";
+          // Utiliser les événements déjà chargés au lieu de faire un nouvel appel
+          const allEvents = window.allEvents || [];
 
-            const response = await fetch(url);
-            if (!response.ok) throw new Error("HTTP " + response.status);
+          console.log("Tous les événements disponibles:", allEvents); // DEBUG
 
-            const data = await response.json();
-            const allEvents = data.items || [];
+          const partnerships = allEvents.filter((event) => {
+            return event.summary && event.summary.includes("EVENT");
+          });
 
-            console.log("Tous les événements:", allEvents); // DEBUG
-
-            // Filtrer les événements avec la catégorie "Événements"
-            const partnerships = allEvents.filter((event) => {
-              return event.summary && event.summary.startsWith("EVENT");
-            });
-
-            console.log("Partenariats trouvés:", partnerships); // DEBUG
-
-            return partnerships;
-          } catch (error) {
-            console.error("Erreur récupération partenariats:", error);
-            return [];
-          }
+          console.log("Partenariats trouvés:", partnerships);
+          return partnerships;
         }
 
         function createPartnershipCard(event) {
