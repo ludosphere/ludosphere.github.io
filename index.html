@@ -176,6 +176,169 @@
         >
       </div>
     </header>
+    <!-- ajout évenements à venir -->
+    <!-- BANDEAU PARTENARIATS - À INSÉRER APRÈS <body> -->
+    <!-- Récupère automatiquement les événements de la catégorie "Événements" depuis Google Calendar -->
+
+    <div
+      id="partnerships-banner"
+      class="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-200 py-4"
+    >
+      <div class="max-w-5xl mx-auto px-5">
+        <p
+          class="text-xs font-medium tracking-widest uppercase text-blue-600 mb-3"
+        >
+          🤝 Partenariats & Événements
+        </p>
+        <div
+          id="partnerships-list"
+          class="grid grid-cols-1 md:grid-cols-2 gap-4"
+        >
+          <!-- Les partenariats s'affichent ici -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        // Utilise la même configuration que vos soirées jeux
+        const CONFIG = {
+          CALENDAR_ID:
+            "35d4ce4aba23cb63b35de523f9c911bd73b4d92653e6f3e608b80f9e11e446c6@group.calendar.google.com", // À remplacer par votre vrai ID
+          API_KEY: "AIzaSyDoldk55agZMfF_WVX_dGWhxAdI_5A5LcI", // À remplacer par votre vraie clé
+        };
+
+        function getDaysRemaining(dateStr) {
+          const eventDate = new Date(dateStr);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          const timeDiff = eventDate.getTime() - today.getTime();
+          return Math.ceil(timeDiff / (1000 * 3600 * 24));
+        }
+
+        function formatDate(dateStr) {
+          const date = new Date(dateStr);
+          const options = { weekday: "short", day: "numeric", month: "long" };
+          return date.toLocaleDateString("fr-FR", options);
+        }
+
+        function getTime(event) {
+          const start = event.start.dateTime || event.start.date;
+          if (!start) return "";
+          const date = new Date(start);
+          return date.toLocaleTimeString("fr-FR", {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+        }
+
+        function getEventDate(event) {
+          const start = event.start.dateTime || event.start.date;
+          return start ? start.split("T")[0] : "";
+        }
+
+        function sortEventsByDate(events) {
+          return events.sort((a, b) => {
+            const dateA = new Date(getEventDate(a));
+            const dateB = new Date(getEventDate(b));
+            return dateA - dateB;
+          });
+        }
+
+        async function fetchPartnershipEvents() {
+          try {
+            const url =
+              "https://www.googleapis.com/calendar/v3/calendars/" +
+              encodeURIComponent(CONFIG.CALENDAR_ID) +
+              "/events" +
+              "?key=" +
+              CONFIG.API_KEY +
+              "&timeMin=" +
+              new Date().toISOString() +
+              "&maxResults=50" +
+              "&singleEvents=true" +
+              "&orderBy=startTime";
+
+            const response = await fetch(url);
+            if (!response.ok) throw new Error("HTTP " + response.status);
+
+            const data = await response.json();
+            const allEvents = data.items || [];
+
+            // Filtrer les événements avec la catégorie "Événements"
+            const partnerships = allEvents.filter((event) => {
+              const categories = event.categories || [];
+              return (
+                categories.includes("Événements") ||
+                categories.includes("evenements")
+              );
+            });
+
+            return partnerships;
+          } catch (error) {
+            console.error("Erreur récupération partenariats:", error);
+            return [];
+          }
+        }
+
+        function createPartnershipCard(event) {
+          const dateStr = getEventDate(event);
+          const daysRemaining = getDaysRemaining(dateStr);
+          const isUrgent = daysRemaining >= 0 && daysRemaining < 7;
+          const badge = daysRemaining < 0 ? "✓ Passé" : `J-${daysRemaining}`;
+
+          const borderColor = isUrgent
+            ? "border-l-red-500"
+            : "border-l-blue-500";
+          const bgColor = isUrgent ? "bg-red-50" : "bg-white";
+          const badgeColor = isUrgent ? "bg-red-500" : "bg-blue-500";
+
+          const card = document.createElement("div");
+          card.className = `${bgColor} border-l-4 ${borderColor} rounded-lg px-4 py-3 flex justify-between items-center hover:shadow-md transition-all duration-200`;
+
+          const location = event.location || "Localisation à préciser";
+          const time = getTime(event) || "Heure à préciser";
+
+          card.innerHTML = `
+        <div>
+          <h4 class="font-medium text-sm text-gray-800">${event.summary || "Événement"}</h4>
+          <div class="text-xs text-gray-500 mt-1">
+            <span>📅 ${formatDate(dateStr)} · ${time}</span>
+          </div>
+          <div class="text-xs text-gray-500">
+            <span>📍 ${location}</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 ml-4 flex-shrink-0">
+          <span class="${badgeColor} text-white text-xs font-bold px-3 py-1 rounded-full">${badge}</span>
+        </div>
+      `;
+
+          return card;
+        }
+
+        async function displayPartnerships() {
+          const list = document.getElementById("partnerships-list");
+          const banner = document.getElementById("partnerships-banner");
+
+          if (!list) return;
+
+          const partnerships = await fetchPartnershipEvents();
+          const sorted = sortEventsByDate(partnerships).slice(0, 3);
+
+          if (sorted.length === 0) {
+            banner.style.display = "none";
+            return;
+          }
+
+          sorted.forEach((event) => {
+            list.appendChild(createPartnershipCard(event));
+          });
+        }
+
+        document.addEventListener("DOMContentLoaded", displayPartnerships);
+      })();
+    </script>
 
     <section class="max-w-5xl mx-auto px-5 pt-12 pb-10 animate-fade-up">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
