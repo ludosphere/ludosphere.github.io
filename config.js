@@ -6,8 +6,9 @@
 const CONFIG = {
   // Google Calendar API
   CALENDAR: {
-    API_KEY: "AIzaSyDoldk55agZMfF_WVX_dGWhxAdI_5A5LcI",
-    CALENDAR_ID: "35d4ce4aba23cb63b35de523f9c911bd73b4d92653e6f3e608b80f9e11e446c6@group.calendar.google.com",
+    API_KEY: "AIzaSyBzBN6dFIR7XGsA-7o9vRB6gJHjk0udB3g",
+    CALENDAR_ID:
+      "35d4ce4aba23cb63b35de523f9c911bd73b4d92653e6f3e608b80f9e11e446c6@group.calendar.google.com",
     MAX_RESULTS: 20,
   },
 
@@ -51,7 +52,8 @@ const CONFIG = {
   // Réseaux sociaux
   SOCIAL: {
     FACEBOOK: "https://www.facebook.com/ludosphere.asso",
-    CALENDAR_LINK: "https://calendar.google.com/calendar/u/2?cid=MzVkNGNlNGFiYTIzY2I2M2IzNWRlNTIzZjljOTExYmQ3M2I0ZDkyNjUzZTZmM2U2MDhiODBmOWUxMWU0NDZjNkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
+    CALENDAR_LINK:
+      "https://calendar.google.com/calendar/u/2?cid=MzVkNGNlNGFiYTIzY2I2M2IzNWRlNTIzZjljOTExYmQ3M2I0ZDkyNjUzZTZmM2U2MDhiODBmOWUxMWU0NDZjNkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
     HELLOASSO: "https://www.helloasso.com/associations/ludo-sphere",
   },
 
