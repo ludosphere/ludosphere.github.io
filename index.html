@@ -265,13 +265,9 @@
             const data = await response.json();
             const allEvents = data.items || [];
 
-            // Filtrer les événements avec la catégorie "Événements"
+            // Filtrer les événements avec la catégorie "[EVENT]"
             const partnerships = allEvents.filter((event) => {
-              const categories = event.categories || [];
-              return (
-                categories.includes("Événements") ||
-                categories.includes("evenements")
-              );
+              return event.summary && event.summary.startsWith("[EVENT]");
             });
 
             return partnerships;
