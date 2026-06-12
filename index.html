@@ -941,14 +941,16 @@
         var list = document.getElementById("partnerships-list");
         var banner = document.getElementById("partnerships-banner");
         if (!list) return;
+
         var partnerships = allEvents.filter(function (e) {
           return e.summary && e.summary.includes("[EVENT]");
         });
-        console.log("Partenariats trouvés:", partnerships);
+
         if (partnerships.length === 0) {
           banner.style.display = "none";
           return;
         }
+
         partnerships.slice(0, 3).forEach(function (event) {
           var dateStr = (event.start.dateTime || event.start.date).split(
             "T",
@@ -959,12 +961,6 @@
           );
           var isUrgent = daysRemaining >= 0 && daysRemaining < 7;
           var badge = daysRemaining < 0 ? "✓ Passé" : "J-" + daysRemaining;
-          var card = document.createElement("div");
-          card.className =
-            (isUrgent ? "bg-red-50" : "bg-white") +
-            " border-l-4 " +
-            (isUrgent ? "border-l-red-500" : "border-l-blue-500") +
-            " rounded-lg px-4 py-3 flex justify-between items-center hover:shadow-md transition-all duration-200 cursor-pointer";
           var date = new Date(dateStr);
           var time = event.start.dateTime
             ? new Date(event.start.dateTime).toLocaleTimeString("fr-FR", {
@@ -972,16 +968,27 @@
                 minute: "2-digit",
               })
             : "";
-          // Nettoyer le titre : enlever "[EVENT] "
+
+          // Nettoyer le titre
           var cleanTitle = event.summary.replace("[EVENT] ", "").trim();
-          // Extraire le lien de la description
+
+          // Extraire URL de la description
           var url = "";
           if (event.description) {
-            var urlMatch = event.description.match(
+            var match = event.description.match(
               /https?:\/\/[^\s<>"{}|\\^`\[\]]+/,
             );
-            url = urlMatch ? urlMatch[0] : "";
+            if (match) url = match[0];
           }
+
+          var card = document.createElement("a");
+          card.href = url || "#";
+          card.target = "_blank";
+          card.className =
+            (isUrgent ? "bg-red-50" : "bg-white") +
+            " border-l-4 " +
+            (isUrgent ? "border-l-red-500" : "border-l-blue-500") +
+            " rounded-lg px-4 py-3 flex justify-between items-center hover:shadow-md transition-all duration-200";
           card.innerHTML =
             '<div><h4 class="font-medium text-sm text-gray-800">' +
             cleanTitle +
@@ -1000,11 +1007,7 @@
             ' text-white text-xs font-bold px-3 py-1 rounded-full">' +
             badge +
             "</span></div>";
-          if (url) {
-            card.onclick = function () {
-              window.open(url, "_blank");
-            };
-          }
+
           list.appendChild(card);
         });
       }
