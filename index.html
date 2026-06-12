@@ -200,121 +200,132 @@
     </div>
 
     <script>
-      (function () {
-        // Utilise la même configuration que vos soirées jeux
-        const CONFIG = {
-          CALENDAR_ID: "ludosphere.asso@gmail.com", // À remplacer par votre vrai ID
-          API_KEY: "AIzaSyDoldk55agZMfF_WVX_dGWhxAdI_5A5LcI", // À remplacer par votre vraie clé
-        };
+            (function () {
+              // Utilise la même configuration que vos soirées jeux
+              const CONFIG = {
+                CALENDAR_ID: "ludosphere.asso@gmail.com", // À remplacer par votre vrai ID
+                API_KEY: "AIzaSyDoldk55agZMfF_WVX_dGWhxAdI_5A5LcI", // À remplacer par votre vraie clé
+              };
 
-        function getDaysRemaining(dateStr) {
-          const eventDate = new Date(dateStr);
-          const today = new Date();
-          today.setHours(0, 0, 0, 0);
-          const timeDiff = eventDate.getTime() - today.getTime();
-          return Math.ceil(timeDiff / (1000 * 3600 * 24));
+              function getDaysRemaining(dateStr) {
+                const eventDate = new Date(dateStr);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const timeDiff = eventDate.getTime() - today.getTime();
+                return Math.ceil(timeDiff / (1000 * 3600 * 24));
+              }
+
+              function formatDate(dateStr) {
+                const date = new Date(dateStr);
+                const options = { weekday: "short", day: "numeric", month: "long" };
+                return date.toLocaleDateString("fr-FR", options);
+              }
+
+              function getTime(event) {
+                const start = event.start.dateTime || event.start.date;
+                if (!start) return "";
+                const date = new Date(start);
+                return date.toLocaleTimeString("fr-FR", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                });
+              }
+
+              function getEventDate(event) {
+                const start = event.start.dateTime || event.start.date;
+                return start ? start.split("T")[0] : "";
+              }
+
+              function sortEventsByDate(events) {
+                return events.sort((a, b) => {
+                  const dateA = new Date(getEventDate(a));
+                  const dateB = new Date(getEventDate(b));
+                  return dateA - dateB;
+                });
+              }
+
+              async function fetchPartnershipEvents() {
+                // Utiliser les événements déjà chargés au lieu de faire un nouvel appel
+                const allEvents = window.allEvents || [];
+
+                console.log("Tous les événements disponibles:", allEvents); // DEBUG
+
+                const partnerships = allEvents.filter((event) => {
+                  return event.summary && event.summary.includes("EVENT");
+                });
+
+                console.log("Partenariats trouvés:", partnerships);
+                return partnerships;
+              }
+
+              function createPartnershipCard(event) {
+                const dateStr = getEventDate(event);
+                const daysRemaining = getDaysRemaining(dateStr);
+                const isUrgent = daysRemaining >= 0 && daysRemaining < 7;
+                const badge = daysRemaining < 0 ? "✓ Passé" : `J-${daysRemaining}`;
+
+                const borderColor = isUrgent
+                  ? "border-l-red-500"
+                  : "border-l-blue-500";
+                const bgColor = isUrgent ? "bg-red-50" : "bg-white";
+                const badgeColor = isUrgent ? "bg-red-500" : "bg-blue-500";
+
+                const card = document.createElement("div");
+                card.className = `${bgColor} border-l-4 ${borderColor} rounded-lg px-4 py-3 flex justify-between items-center hover:shadow-md transition-all duration-200`;
+
+                const location = event.location || "Localisation à préciser";
+                const time = getTime(event) || "Heure à préciser";
+
+                card.innerHTML = `
+              <div>
+                <h4 class="font-medium text-sm text-gray-800">${event.summary || "Événement"}</h4>
+                <div class="text-xs text-gray-500 mt-1">
+                  <span>📅 ${formatDate(dateStr)} · ${time}</span>
+                </div>
+                <div class="text-xs text-gray-500">
+                  <span>📍 ${location}</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 ml-4 flex-shrink-0">
+                <span class="${badgeColor} text-white text-xs font-bold px-3 py-1 rounded-full">${badge}</span>
+              </div>
+            `;
+
+                return card;
+              }
+
+            async function displayPartnerships() {
+        const list = document.getElementById("partnerships-list");
+        const banner = document.getElementById("partnerships-banner");
+
+        if (!list) return;
+
+        // Attendre que allEvents soit chargé
+        let attempts = 0;
+        while (!window.allEvents || window.allEvents.length === 0) {
+          await new Promise(resolve => setTimeout(resolve, 100));
+          attempts++;
+          if (attempts > 50) break; // Timeout après 5 secondes
         }
 
-        function formatDate(dateStr) {
-          const date = new Date(dateStr);
-          const options = { weekday: "short", day: "numeric", month: "long" };
-          return date.toLocaleDateString("fr-FR", options);
+        const partnerships = window.allEvents.filter((event) => {
+          return event.summary && event.summary.includes("[EVENT]");
+        });
+
+        console.log("Partenariats trouvés:", partnerships);
+
+        if (partnerships.length === 0) {
+          banner.style.display = "none";
+          return;
         }
 
-        function getTime(event) {
-          const start = event.start.dateTime || event.start.date;
-          if (!start) return "";
-          const date = new Date(start);
-          return date.toLocaleTimeString("fr-FR", {
-            hour: "2-digit",
-            minute: "2-digit",
-          });
-        }
+        const sorted = sortEventsByDate(partnerships).slice(0, 3);
+        sorted.forEach((event) => {
+          list.appendChild(createPartnershipCard(event));
+        });
+      }
 
-        function getEventDate(event) {
-          const start = event.start.dateTime || event.start.date;
-          return start ? start.split("T")[0] : "";
-        }
-
-        function sortEventsByDate(events) {
-          return events.sort((a, b) => {
-            const dateA = new Date(getEventDate(a));
-            const dateB = new Date(getEventDate(b));
-            return dateA - dateB;
-          });
-        }
-
-        async function fetchPartnershipEvents() {
-          // Utiliser les événements déjà chargés au lieu de faire un nouvel appel
-          const allEvents = window.allEvents || [];
-
-          console.log("Tous les événements disponibles:", allEvents); // DEBUG
-
-          const partnerships = allEvents.filter((event) => {
-            return event.summary && event.summary.includes("EVENT");
-          });
-
-          console.log("Partenariats trouvés:", partnerships);
-          return partnerships;
-        }
-
-        function createPartnershipCard(event) {
-          const dateStr = getEventDate(event);
-          const daysRemaining = getDaysRemaining(dateStr);
-          const isUrgent = daysRemaining >= 0 && daysRemaining < 7;
-          const badge = daysRemaining < 0 ? "✓ Passé" : `J-${daysRemaining}`;
-
-          const borderColor = isUrgent
-            ? "border-l-red-500"
-            : "border-l-blue-500";
-          const bgColor = isUrgent ? "bg-red-50" : "bg-white";
-          const badgeColor = isUrgent ? "bg-red-500" : "bg-blue-500";
-
-          const card = document.createElement("div");
-          card.className = `${bgColor} border-l-4 ${borderColor} rounded-lg px-4 py-3 flex justify-between items-center hover:shadow-md transition-all duration-200`;
-
-          const location = event.location || "Localisation à préciser";
-          const time = getTime(event) || "Heure à préciser";
-
-          card.innerHTML = `
-        <div>
-          <h4 class="font-medium text-sm text-gray-800">${event.summary || "Événement"}</h4>
-          <div class="text-xs text-gray-500 mt-1">
-            <span>📅 ${formatDate(dateStr)} · ${time}</span>
-          </div>
-          <div class="text-xs text-gray-500">
-            <span>📍 ${location}</span>
-          </div>
-        </div>
-        <div class="flex items-center gap-3 ml-4 flex-shrink-0">
-          <span class="${badgeColor} text-white text-xs font-bold px-3 py-1 rounded-full">${badge}</span>
-        </div>
-      `;
-
-          return card;
-        }
-
-        async function displayPartnerships() {
-          const list = document.getElementById("partnerships-list");
-          const banner = document.getElementById("partnerships-banner");
-
-          if (!list) return;
-
-          const partnerships = await fetchPartnershipEvents();
-          const sorted = sortEventsByDate(partnerships).slice(0, 3);
-
-          if (sorted.length === 0) {
-            banner.style.display = "none";
-            return;
-          }
-
-          sorted.forEach((event) => {
-            list.appendChild(createPartnershipCard(event));
-          });
-        }
-
-        document.addEventListener("DOMContentLoaded", displayPartnerships);
-      })();
+      document.addEventListener("DOMContentLoaded", displayPartnerships);
     </script>
 
     <section class="max-w-5xl mx-auto px-5 pt-12 pb-10 animate-fade-up">
