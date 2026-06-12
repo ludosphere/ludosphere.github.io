@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /config.js
+Disallow: /.git/
+Disallow: /.github/
+
+Sitemap: https://ludosphere-vallet.org/sitemap.xml
+
+# Rate limiting for bots
+User-agent: AdsBot-Google
+Crawl-delay: 1
+
+User-agent: Googlebot
+Crawl-delay: 0
