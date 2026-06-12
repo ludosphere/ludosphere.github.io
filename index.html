@@ -4,8 +4,14 @@
     <!-- Meta Tags Essentiels -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Ludo'sphère à Vallet : soirées jeux de société mensuelles. Stratégie, coopératif, ambiance. Entrée libre, adhésion 20€/an. Accueil dès 20h30 à la Salle Simone de Beauvoir." />
-    <meta name="keywords" content="jeux de société, Vallet, soirées jeux, stratégie, coopératif, escape game, événements" />
+    <meta
+      name="description"
+      content="Ludo'sphère à Vallet : soirées jeux de société mensuelles. Stratégie, coopératif, ambiance. Entrée libre, adhésion 20€/an. Accueil dès 20h30 à la Salle Simone de Beauvoir."
+    />
+    <meta
+      name="keywords"
+      content="jeux de société, Vallet, soirées jeux, stratégie, coopératif, escape game, événements"
+    />
     <meta name="author" content="Association Ludo'sphère" />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="French" />
@@ -13,16 +19,31 @@
     <!-- Open Graph (Réseaux Sociaux) -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ludosphere-vallet.org" />
-    <meta property="og:title" content="Ludo'sphère · Soirées Jeux de Société à Vallet" />
-    <meta property="og:description" content="Rejoignez nos soirées jeux mensuelles : stratégie, coopératif, ambiance. Entrée libre !" />
-    <meta property="og:image" content="https://ludosphere-vallet.org/images/logo_ludosphere.png" />
+    <meta
+      property="og:title"
+      content="Ludo'sphère · Soirées Jeux de Société à Vallet"
+    />
+    <meta
+      property="og:description"
+      content="Rejoignez nos soirées jeux mensuelles : stratégie, coopératif, ambiance. Entrée libre !"
+    />
+    <meta
+      property="og:image"
+      content="https://ludosphere-vallet.org/images/logo_ludosphere.png"
+    />
     <meta property="og:site_name" content="Ludo'sphère" />
     <meta property="og:locale" content="fr_FR" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Ludo'sphère · Soirées Jeux de Société" />
-    <meta name="twitter:description" content="Découvrez nos soirées jeux mensuelles à Vallet" />
+    <meta
+      name="twitter:title"
+      content="Ludo'sphère · Soirées Jeux de Société"
+    />
+    <meta
+      name="twitter:description"
+      content="Découvrez nos soirées jeux mensuelles à Vallet"
+    />
 
     <!-- Canonical -->
     <link rel="canonical" href="https://ludosphere-vallet.org" />
@@ -35,7 +56,10 @@
     <link rel="stylesheet" href="./styles.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Instrument+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Tailwind Config -->
     <script>
@@ -64,7 +88,11 @@
       body {
         font-variant-numeric: tabular-nums lining-nums;
       }
-      #month-title, #next-date, .calendar-grid, [id*="event"], [id*="date"] {
+      #month-title,
+      #next-date,
+      .calendar-grid,
+      [id*="event"],
+      [id*="date"] {
         font-variant-numeric: tabular-nums lining-nums;
       }
     </style>
@@ -85,9 +113,7 @@
           "postalCode": "44330",
           "addressCountry": "FR"
         },
-        "sameAs": [
-          "https://www.facebook.com/ludosphere.asso"
-        ],
+        "sameAs": ["https://www.facebook.com/ludosphere.asso"],
         "contactPoint": {
           "@type": "ContactPoint",
           "contactType": "General",
@@ -101,20 +127,42 @@
 
   <body class="bg-paper text-ink min-h-screen">
     <!-- Header -->
-    <header class="border-b border-line bg-paper/90 sticky top-0 z-10 backdrop-blur-sm">
-      <div class="max-w-5xl mx-auto px-5 py-4 flex items-center justify-between">
+    <header
+      class="border-b border-line bg-paper/90 sticky top-0 z-10 backdrop-blur-sm"
+    >
+      <div
+        class="max-w-5xl mx-auto px-5 py-4 flex items-center justify-between"
+      >
         <div class="flex items-center">
-          <img src="./images/logo_ludosphere.png" alt="Ludo'sphère - Association de jeux de société" class="h-14 w-auto" />
+          <img
+            src="./images/logo_ludosphere.png"
+            alt="Ludo'sphère - Association de jeux de société"
+            class="h-14 w-auto"
+          />
         </div>
-        <a href="mailto:ludosphere.asso@gmail.com" class="text-sm font-medium border border-line rounded-full px-4 py-1.5 hover:bg-ink hover:text-paper hover:border-ink transition-all duration-200">Nous écrire</a>
+        <a
+          href="mailto:ludosphere.asso@gmail.com"
+          class="text-sm font-medium border border-line rounded-full px-4 py-1.5 hover:bg-ink hover:text-paper hover:border-ink transition-all duration-200"
+          >Nous écrire</a
+        >
       </div>
     </header>
 
     <!-- Bandeau Partenariats -->
-    <div id="partnerships-banner" class="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-200 py-4">
+    <div
+      id="partnerships-banner"
+      class="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-200 py-4"
+    >
       <div class="max-w-5xl mx-auto px-5">
-        <p class="text-xs font-medium tracking-widest uppercase text-blue-600 mb-3">🤝 Partenariats & Événements</p>
-        <div id="partnerships-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        <p
+          class="text-xs font-medium tracking-widest uppercase text-blue-600 mb-3"
+        >
+          🤝 Partenariats & Événements
+        </p>
+        <div
+          id="partnerships-list"
+          class="grid grid-cols-1 md:grid-cols-2 gap-4"
+        ></div>
       </div>
     </div>
 
@@ -122,9 +170,20 @@
     <section class="max-w-5xl mx-auto px-5 pt-12 pb-10 animate-fade-up">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <div>
-          <p class="text-xs font-medium tracking-widest uppercase text-accent mb-3">Association Ludo'Sphère · Vallet</p>
-          <h1 class="font-display font-extrabold text-3xl sm:text-4xl leading-tight tracking-tight mb-4">Prochaines<br />soirées jeux</h1>
-          <p class="text-base text-zinc-500 max-w-sm leading-relaxed mb-6">Des parties conviviales chaque mois — stratégie, coopératif, ambiance. Ouvert à tous, débutants bienvenus.</p>
+          <p
+            class="text-xs font-medium tracking-widest uppercase text-accent mb-3"
+          >
+            Association Ludo'Sphère · Vallet
+          </p>
+          <h1
+            class="font-display font-extrabold text-3xl sm:text-4xl leading-tight tracking-tight mb-4"
+          >
+            Prochaines<br />soirées jeux
+          </h1>
+          <p class="text-base text-zinc-500 max-w-sm leading-relaxed mb-6">
+            Des parties conviviales chaque mois — stratégie, coopératif,
+            ambiance. Ouvert à tous, débutants bienvenus.
+          </p>
           <div class="flex flex-wrap gap-2">
             <span class="type-badge">♟️ Stratégie</span>
             <span class="type-badge">🎉 Ambiance</span>
@@ -135,21 +194,47 @@
           </div>
         </div>
         <div class="photo-card h-64 md:h-72 bg-mist">
-          <img src="./images/photo 1.jpg" alt="Soirée jeux Ludo'sphère - joueurs autour d'une table" class="w-full h-full object-cover rounded-xl" onerror="this.src='https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=800&q=80'" />
+          <img
+            src="./images/photo 1.jpg"
+            alt="Soirée jeux Ludo'sphère - joueurs autour d'une table"
+            class="w-full h-full object-cover rounded-xl"
+            onerror="
+              this.src =
+                'https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=800&q=80'
+            "
+          />
         </div>
       </div>
     </section>
 
     <!-- Main Content -->
-    <main class="max-w-5xl mx-auto px-5 pb-16 grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-up-2">
+    <main
+      class="max-w-5xl mx-auto px-5 pb-16 grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-up-2"
+    >
       <!-- Events Section -->
       <div class="lg:col-span-2">
         <div class="flex items-center gap-2 mb-6">
-          <button onclick="setView('list')" id="btn-list" class="text-xs font-medium px-3 py-1.5 rounded-full border border-ink bg-ink text-paper transition-all">📋 Liste</button>
-          <button onclick="setView('month')" id="btn-month" class="text-xs font-medium px-3 py-1.5 rounded-full border border-line text-zinc-500 hover:border-ink hover:text-ink transition-all">📅 Mois</button>
+          <button
+            onclick="setView('list')"
+            id="btn-list"
+            class="text-xs font-medium px-3 py-1.5 rounded-full border border-ink bg-ink text-paper transition-all"
+          >
+            📋 Liste
+          </button>
+          <button
+            onclick="setView('month')"
+            id="btn-month"
+            class="text-xs font-medium px-3 py-1.5 rounded-full border border-line text-zinc-500 hover:border-ink hover:text-ink transition-all"
+          >
+            📅 Mois
+          </button>
           <div class="ml-auto flex items-center gap-2">
             <label class="text-xs text-zinc-400">Afficher</label>
-            <select id="max-results" onchange="changeMaxResults(this.value)" class="text-xs border border-line rounded-full px-2 py-1 bg-paper text-ink focus:outline-none focus:border-ink cursor-pointer">
+            <select
+              id="max-results"
+              onchange="changeMaxResults(this.value)"
+              class="text-xs border border-line rounded-full px-2 py-1 bg-paper text-ink focus:outline-none focus:border-ink cursor-pointer"
+            >
               <option value="10">10</option>
               <option value="20" selected>20</option>
               <option value="50">50</option>
@@ -170,9 +255,19 @@
 
         <div id="view-month" class="hidden">
           <div class="flex items-center justify-between mb-4">
-            <button onclick="changeMonth(-1)" class="w-8 h-8 rounded-full border border-line hover:bg-ink hover:text-paper hover:border-ink transition-all flex items-center justify-center text-sm">&#8249;</button>
+            <button
+              onclick="changeMonth(-1)"
+              class="w-8 h-8 rounded-full border border-line hover:bg-ink hover:text-paper hover:border-ink transition-all flex items-center justify-center text-sm"
+            >
+              &#8249;
+            </button>
             <div id="month-title" class="font-display font-bold text-xl"></div>
-            <button onclick="changeMonth(1)" class="w-8 h-8 rounded-full border border-line hover:bg-ink hover:text-paper hover:border-ink transition-all flex items-center justify-center text-sm">&#8250;</button>
+            <button
+              onclick="changeMonth(1)"
+              class="w-8 h-8 rounded-full border border-line hover:bg-ink hover:text-paper hover:border-ink transition-all flex items-center justify-center text-sm"
+            >
+              &#8250;
+            </button>
           </div>
           <div id="calendar-grid"></div>
           <div id="month-events" class="mt-4 flex flex-col gap-1"></div>
@@ -183,65 +278,194 @@
       <aside class="flex flex-col gap-5 animate-fade-up-3">
         <!-- Infos Pratiques -->
         <div class="border border-line rounded-xl p-5">
-          <p class="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">📍 Infos pratiques</p>
+          <p
+            class="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4"
+          >
+            📍 Infos pratiques
+          </p>
           <ul class="flex flex-col gap-3 text-sm">
-            <li class="flex gap-2 items-start"><span class="mt-0.5">🏛️</span><span>Salle Simone de Beauvoir<br /><span class="text-zinc-400">Rue Emile Gabory — 44330 Vallet</span></span></li>
-            <li class="flex gap-2 items-start"><span class="mt-0.5">🕗</span><span>Accueil dès 20h30<br /><span class="text-zinc-400">Parties jusqu'à 23h</span></span></li>
-            <li class="flex gap-2 items-start"><span class="mt-0.5">🎟️</span><span>Entrée libre<br /><span class="text-zinc-400">Adhésion annuelle 20 €</span></span></li>
-            <li class="flex gap-2 items-start"><span class="mt-0.5">📅</span><span>Fréquence mensuelle<br /><span class="text-zinc-400">Voir le calendrier</span></span></li>
+            <li class="flex gap-2 items-start">
+              <span class="mt-0.5">🏛️</span
+              ><span
+                >Salle Simone de Beauvoir<br /><span class="text-zinc-400"
+                  >Rue Emile Gabory — 44330 Vallet</span
+                ></span
+              >
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="mt-0.5">🕗</span
+              ><span
+                >Accueil dès 20h30<br /><span class="text-zinc-400"
+                  >Parties jusqu'à 23h</span
+                ></span
+              >
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="mt-0.5">🎟️</span
+              ><span
+                >Entrée libre<br /><span class="text-zinc-400"
+                  >Adhésion annuelle 20 €</span
+                ></span
+              >
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="mt-0.5">📅</span
+              ><span
+                >Fréquence mensuelle<br /><span class="text-zinc-400"
+                  >Voir le calendrier</span
+                ></span
+              >
+            </li>
           </ul>
         </div>
 
         <!-- Prochain Rendez-vous -->
         <div id="next-card" class="bg-ink text-paper rounded-xl p-5 hidden">
-          <p class="text-xs font-medium tracking-widest uppercase text-soft mb-3">⏰ Prochain rendez-vous</p>
+          <p
+            class="text-xs font-medium tracking-widest uppercase text-soft mb-3"
+          >
+            ⏰ Prochain rendez-vous
+          </p>
           <div id="next-icon" class="text-3xl mb-2"></div>
-          <div id="next-date" class="font-display font-extrabold text-4xl leading-none text-white mb-1"></div>
-          <div id="next-month" class="text-xs text-zinc-400 mb-3 uppercase tracking-widest"></div>
+          <div
+            id="next-date"
+            class="font-display font-extrabold text-4xl leading-none text-white mb-1"
+          ></div>
+          <div
+            id="next-month"
+            class="text-xs text-zinc-400 mb-3 uppercase tracking-widest"
+          ></div>
           <div id="next-title" class="font-medium text-base mb-1"></div>
           <div id="next-where" class="text-sm text-zinc-400"></div>
-          <div id="next-desc" class="text-sm text-zinc-400 mt-2 leading-relaxed line-clamp-3"></div>
+          <div
+            id="next-desc"
+            class="text-sm text-zinc-400 mt-2 leading-relaxed line-clamp-3"
+          ></div>
         </div>
 
         <!-- Contact -->
         <div class="border border-line rounded-xl p-5">
-          <p class="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">👋 Contact</p>
+          <p
+            class="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4"
+          >
+            👋 Contact
+          </p>
           <ul class="flex flex-col gap-3">
             <li class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-full bg-ink text-paper grid place-items-center text-xs font-bold flex-shrink-0">JFP</div>
-              <div><p class="text-sm font-medium leading-tight">Jean-François</p><p class="text-xs text-zinc-400">Président</p></div>
+              <div
+                class="w-9 h-9 rounded-full bg-ink text-paper grid place-items-center text-xs font-bold flex-shrink-0"
+              >
+                JFP
+              </div>
+              <div>
+                <p class="text-sm font-medium leading-tight">Jean-François</p>
+                <p class="text-xs text-zinc-400">Président</p>
+              </div>
             </li>
             <li class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-full bg-ink text-paper grid place-items-center text-xs font-bold flex-shrink-0">JA</div>
-              <div><p class="text-sm font-medium leading-tight">Jeremie</p><p class="text-xs text-zinc-400">Secrétaire</p></div>
+              <div
+                class="w-9 h-9 rounded-full bg-ink text-paper grid place-items-center text-xs font-bold flex-shrink-0"
+              >
+                JA
+              </div>
+              <div>
+                <p class="text-sm font-medium leading-tight">Jeremie</p>
+                <p class="text-xs text-zinc-400">Secrétaire</p>
+              </div>
             </li>
             <li class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-full bg-ink text-paper grid place-items-center text-xs font-bold flex-shrink-0">RG</div>
-              <div><p class="text-sm font-medium leading-tight">Régis</p><p class="text-xs text-zinc-400">Trésorier</p></div>
+              <div
+                class="w-9 h-9 rounded-full bg-ink text-paper grid place-items-center text-xs font-bold flex-shrink-0"
+              >
+                RG
+              </div>
+              <div>
+                <p class="text-sm font-medium leading-tight">Régis</p>
+                <p class="text-xs text-zinc-400">Trésorier</p>
+              </div>
             </li>
             <li class="mt-1 pt-3 border-t border-line">
-              <a href="mailto:ludosphere.asso@gmail.com" class="flex items-center gap-2 text-sm text-accent hover:underline">✉️ ludosphere.asso@gmail.com</a>
+              <a
+                href="mailto:ludosphere.asso@gmail.com"
+                class="flex items-center gap-2 text-sm text-accent hover:underline"
+                >✉️ ludosphere.asso@gmail.com</a
+              >
             </li>
           </ul>
         </div>
 
         <!-- CTA Buttons -->
-        <a href="./apropos.html" class="group flex items-center justify-between bg-ink text-paper rounded-xl px-5 py-4 hover:bg-accent transition-colors duration-200">
-          <div><p class="text-xs font-medium tracking-widest uppercase text-zinc-400 group-hover:text-blue-200 mb-0.5">En savoir plus</p><p class="font-display font-bold text-base">À propos de nous</p></div>
+        <a
+          href="./apropos.html"
+          class="group flex items-center justify-between bg-ink text-paper rounded-xl px-5 py-4 hover:bg-accent transition-colors duration-200"
+        >
+          <div>
+            <p
+              class="text-xs font-medium tracking-widest uppercase text-zinc-400 group-hover:text-blue-200 mb-0.5"
+            >
+              En savoir plus
+            </p>
+            <p class="font-display font-bold text-base">À propos de nous</p>
+          </div>
           <span class="text-2xl">→</span>
         </a>
-        <a href="./ludotheque.html" class="group flex items-center justify-between border-2 border-accent rounded-xl px-5 py-4 hover:bg-accent hover:text-paper transition-colors duration-200">
-          <div><p class="text-xs font-medium tracking-widest uppercase text-accent group-hover:text-blue-200 mb-0.5">254 jeux disponibles</p><p class="font-display font-bold text-base text-ink group-hover:text-paper">Notre ludothèque</p></div>
+        <a
+          href="./ludotheque-bgg.html"
+          class="group flex items-center justify-between border-2 border-accent rounded-xl px-5 py-4 hover:bg-accent hover:text-paper transition-colors duration-200"
+        >
+          <div>
+            <p
+              class="text-xs font-medium tracking-widest uppercase text-accent group-hover:text-blue-200 mb-0.5"
+            >
+              254 jeux disponibles
+            </p>
+            <p
+              class="font-display font-bold text-base text-ink group-hover:text-paper"
+            >
+              Notre ludothèque
+            </p>
+          </div>
           <span class="text-2xl">🎲</span>
         </a>
 
         <!-- Liens Utiles -->
         <div class="border border-line rounded-xl p-5">
-          <p class="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">🔗 Liens utiles</p>
+          <p
+            class="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4"
+          >
+            🔗 Liens utiles
+          </p>
           <ul class="flex flex-col gap-0">
-            <li><a href="https://www.facebook.com/ludosphere.asso" target="_blank" rel="noopener" class="flex items-center justify-between text-sm py-2.5 border-b border-line hover:text-accent transition-colors group"><span>📘 Notre page Facebook</span><span class="text-zinc-300 group-hover:text-accent">↗</span></a></li>
-            <li><a href="https://www.helloasso.com/associations/ludo-sphere" target="_blank" rel="noopener" class="flex items-center justify-between text-sm py-2.5 border-b border-line hover:text-accent transition-colors group"><span>💚 HelloAsso — Adhésion</span><span class="text-zinc-300 group-hover:text-accent">↗</span></a></li>
-            <li><a href="https://calendar.google.com/calendar/u/2?cid=MzVkNGNlNGFiYTIzY2I2M2IzNWRlNTIzZjljOTExYmQ3M2I0ZDkyNjUzZTZmM2U2MDhiODBmOWUxMWU0NDZjNkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" target="_blank" rel="noopener" class="flex items-center justify-between text-sm py-2.5 hover:text-accent transition-colors group"><span>📆 S'abonner au calendrier</span><span class="text-zinc-300 group-hover:text-accent">↗</span></a></li>
+            <li>
+              <a
+                href="https://www.facebook.com/ludosphere.asso"
+                target="_blank"
+                rel="noopener"
+                class="flex items-center justify-between text-sm py-2.5 border-b border-line hover:text-accent transition-colors group"
+                ><span>📘 Notre page Facebook</span
+                ><span class="text-zinc-300 group-hover:text-accent">↗</span></a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.helloasso.com/associations/ludo-sphere"
+                target="_blank"
+                rel="noopener"
+                class="flex items-center justify-between text-sm py-2.5 border-b border-line hover:text-accent transition-colors group"
+                ><span>💚 HelloAsso — Adhésion</span
+                ><span class="text-zinc-300 group-hover:text-accent">↗</span></a
+              >
+            </li>
+            <li>
+              <a
+                href="https://calendar.google.com/calendar/u/2?cid=MzVkNGNlNGFiYTIzY2I2M2IzNWRlNTIzZjljOTExYmQ3M2I0ZDkyNjUzZTZmM2U2MDhiODBmOWUxMWU0NDZjNkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t"
+                target="_blank"
+                rel="noopener"
+                class="flex items-center justify-between text-sm py-2.5 hover:text-accent transition-colors group"
+                ><span>📆 S'abonner au calendrier</span
+                ><span class="text-zinc-300 group-hover:text-accent">↗</span></a
+              >
+            </li>
           </ul>
         </div>
       </aside>
@@ -255,17 +479,69 @@
         <span class="text-xs text-zinc-400 italic">Photos à venir</span>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div class="photo-card col-span-2 h-52 bg-mist rounded-xl"><img src="./images/photo 1.jpg" alt="Ambiance soirée jeux Ludo'sphère" class="rounded-xl" onerror="this.src='https://images.unsplash.com/photo-1632501641765-e568d28b0015?w=800&q=80'" /></div>
-        <div class="photo-card h-52 bg-mist rounded-xl"><img src="./images/photo 2.jpg" alt="Moment convivial soirée jeux" class="rounded-xl" onerror="this.src='https://images.unsplash.com/photo-1606503153255-59d5e417c8d0?w=400&q=80'" /></div>
-        <div class="photo-card h-52 bg-mist rounded-xl"><img src="./images/photo 3.jpg" alt="Joueurs concentrés" class="rounded-xl" onerror="this.src='https://images.unsplash.com/photo-1553481187-be93c21490a9?w=400&q=80'" /></div>
-        <div class="photo-card h-52 bg-mist rounded-xl"><img src="./images/photo 4.jpg" alt="Jeux de société Ludo'sphère" class="rounded-xl" onerror="this.src='https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?w=400&q=80'" /></div>
-        <div class="photo-card h-52 bg-mist rounded-xl"><img src="./images/photo 5.jpg" alt="Participants soirée jeux" class="rounded-xl" onerror="this.src='https://images.unsplash.com/photo-1585504198199-20277593b94f?w=400&q=80'" /></div>
+        <div class="photo-card col-span-2 h-52 bg-mist rounded-xl">
+          <img
+            src="./images/photo 1.jpg"
+            alt="Ambiance soirée jeux Ludo'sphère"
+            class="rounded-xl"
+            onerror="
+              this.src =
+                'https://images.unsplash.com/photo-1632501641765-e568d28b0015?w=800&q=80'
+            "
+          />
+        </div>
+        <div class="photo-card h-52 bg-mist rounded-xl">
+          <img
+            src="./images/photo 2.jpg"
+            alt="Moment convivial soirée jeux"
+            class="rounded-xl"
+            onerror="
+              this.src =
+                'https://images.unsplash.com/photo-1606503153255-59d5e417c8d0?w=400&q=80'
+            "
+          />
+        </div>
+        <div class="photo-card h-52 bg-mist rounded-xl">
+          <img
+            src="./images/photo 3.jpg"
+            alt="Joueurs concentrés"
+            class="rounded-xl"
+            onerror="
+              this.src =
+                'https://images.unsplash.com/photo-1553481187-be93c21490a9?w=400&q=80'
+            "
+          />
+        </div>
+        <div class="photo-card h-52 bg-mist rounded-xl">
+          <img
+            src="./images/photo 4.jpg"
+            alt="Jeux de société Ludo'sphère"
+            class="rounded-xl"
+            onerror="
+              this.src =
+                'https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?w=400&q=80'
+            "
+          />
+        </div>
+        <div class="photo-card h-52 bg-mist rounded-xl">
+          <img
+            src="./images/photo 5.jpg"
+            alt="Participants soirée jeux"
+            class="rounded-xl"
+            onerror="
+              this.src =
+                'https://images.unsplash.com/photo-1585504198199-20277593b94f?w=400&q=80'
+            "
+          />
+        </div>
       </div>
     </section>
 
     <!-- Footer -->
     <footer class="border-t border-line">
-      <div class="max-w-5xl mx-auto px-5 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-zinc-400">
+      <div
+        class="max-w-5xl mx-auto px-5 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-zinc-400"
+      >
         <span>🎲 © 2026 Ludo'sphère — Vallet</span>
         <span>Calendrier synchronisé avec Google Agenda</span>
       </div>
