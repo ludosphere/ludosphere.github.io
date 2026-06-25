@@ -34,7 +34,8 @@ function fetchEvents() {
     "/events?key=" + CONFIG.CALENDAR.API_KEY + 
     "&timeMin=" + now.toISOString() + 
     "&timeMax=" + oneYearFromNow.toISOString() + 
-    "&maxResults=" + maxResultsValue + 
+    // "&maxResults=" + maxResultsValue + 
+    "&maxResults=" + 250 +
     "&singleEvents=true&orderBy=startTime";
 
   document.getElementById("skeleton").style.display = "flex";
