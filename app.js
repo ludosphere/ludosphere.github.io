@@ -179,7 +179,8 @@ function renderNextCard(events) {
   document.getElementById("next-title").textContent = (next.summary || "Soirée jeux");
   /*document.getElementById("next-where").textContent = (next.location ? "📍 " + next.location : "");*/
   document.getElementById("next-where").innerHTML = (next.location ? "📍 " + next.location : "");
-  document.getElementById("next-desc").textContent = (next.description || "");
+  /*document.getElementById("next-desc").textContent = (next.description || "");*/
+  document.getElementById("next-desc").innerHTML = (next.description || "");
 }
 
 /**
