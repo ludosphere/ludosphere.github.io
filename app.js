@@ -177,7 +177,8 @@ function renderNextCard(events) {
   document.getElementById("next-date").textContent = dd.getDate();
   document.getElementById("next-month").textContent = MONTHS_LONG[dd.getMonth()] + " " + dd.getFullYear();
   document.getElementById("next-title").textContent = (next.summary || "Soirée jeux");
-  document.getElementById("next-where").textContent = (next.location ? "📍 " + next.location : "");
+  /*document.getElementById("next-where").textContent = (next.location ? "📍 " + next.location : "");*/
+  document.getElementById("next-where").innerHTML = (next.location ? "📍 " + next.location : "");
   document.getElementById("next-desc").textContent = (next.description || "");
 }
 
